@@ -69,11 +69,11 @@ requests.get(url, auth=auth)
 
 Wufoo uses [Basic Auth](http://www.ietf.org/rfc/rfc2617.txt) with API Keys to allow access to the API. 
 
-Wufoo expects for the API key to be included as the 'username' and any value as the 'password' portion of Basic Auth. If the service you're using doesn't have a built in way to authenticate using Basic Auth, you can set the Authorization header to a base64 string, like so:
+Wufoo expects for the API key to be included as the 'username' and any value as the 'password' portion of Basic Auth. If the service you're using doesn't have a built in way to authenticate using Basic Auth, you can set the Authorization header to a base64 encoded string:
 
-`Authorization: Basic base64('username:password')`
+`base64('username:password')`
 
-After encoding, it might look something like this:
+After encoding, you can set the header like this:
 
 `Authorization: Basic QU9JNi1MRktMLVZNMVEtSUVYOTpmb290YXN0aWM=`
 
@@ -644,6 +644,62 @@ Notice how each SubField element also has it's own ID. This is what allows you t
 # Entries
 
 ## Get Form Entries
+
+This endpoint retrieves the entries from a specific form. 
+
+<aside class="notice">To identify the desired form, use the form hash or the form title, just like the Form request. </aside>
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/entries/{identifier}.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+system    | false   | If set to true, includes additional metadata fields
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+pageStart | 0       | The entry that the request will start from
+pageSize  | 25      | The number of entries returned in the request
+
+<b>Every Entries API call returns five fields with every request. The Default Fields are:</b>
+
+EntryId - This value is the unique identifier for your entry.
+
+DateCreated - The date that this entry was submitted.
+
+Created By - The person who created the entry. If submitted through a form, the value here will be public. If the submission originated in the Entry Manager this value will be the user name of the submitting user.
+
+DateUpdated - The date that this entry was edited through the Entry Manager. If the submission has never been updated, this value will be blank.
+
+UpdatedBy - The user name of the person who updated the entry in the Entry Manager will appear in this element.
+
+<b>The System Fields are:</b>
+
+IP - The IP Address of the user submitting the form.
+
+Last Page Accessed - If a user did not complete the form, this number represents the last page the user did submit.
+
+Completion Status - Is a one or zero, representing either completed (1) or incomplete.
+
+Status - Indicates what state your payment is in. An example is ‘Paid’. To see more payment types, check out the payment status documentation
+
+PurchaseTotal - The total purchase, after discounts, etc.
+
+Currency - The type of currency. An example is USD.
+
+TransactionId - The confirmation number sent back from the merchant gateway.
+
+MerchantType - The merchant name. An example is authnet
+
 
 ## Get Form Entry Count
 
