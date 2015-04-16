@@ -4,13 +4,14 @@ title: Wufoo API
 language_tabs:
   - shell: cURL
   - php: PHP
-  - python
-  - node
-  - ruby
+  - python: Python
+  - node: Node
+  - ruby: Ruby
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
+  - <a href='http://www.wufoo.com'>Wufoo</a>
+  - <a href='http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Wufoo-REST-API-V3'>See our old docs</a>
+  - <a href='http://github.com/tripit/slate'>Powered by Slate</a>
 
 includes:
   - errors
@@ -218,6 +219,63 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
 
 ```json
 {
+  "Forms": [
+    {
+      "Name": "Wufoo API Example",
+      "Description": "This is my form. Please fill it out. It's awesome!",
+      "RedirectMessage": "Success! Thanks for filling out my form!",
+      "Url": "wufoo-api-example",
+      "Email": "",
+      "IsPublic": "1",
+      "Language": "english",
+      "StartDate": "2000-01-01 12:00:00",
+      "EndDate": "2030-01-01 12:00:00",
+      "EntryLimit": "0",
+      "DateCreated": "0000-00-00 00:00:00",
+      "DateUpdated": "0000-00-00 00:00:00",
+      "Hash": "s1afea8b1vk0jf7",
+      "LinkFields": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json",
+      "LinkEntries": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json",
+      "LinkEntriesCount": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json"
+    }
+  ]
+}
+
+```
+
+This endpoint retrieves a specific form. To identify the desired form, you can either use the form hash or the form title. 
+
+<aside class="notice">You can find the form identifier in either the Easy to Remember or the Permanent form URLs</aside>
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter          | Default | Description
+------------------ | ------- | -----------
+includeTodaysCount | false   | If set to true, includes the number of entries received today
+pretty             | false   | If set to true, returns the result in a "pretty print" format
+
+## Get Form Fields
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json?pretty=true"
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
   "Fields": [
     {
       "Title": "Entry Id",
@@ -254,6 +312,37 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
       "Type": "textarea",
       "ID": "Field107"
     },
+    
+```
+
+
+
+This endpoint retrieves the field structure for a specific form.
+
+<aside class="notice">You'll use the same form identifier as you would for our Form request</aside>
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/fields.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+system    | false   | If set to true, includes additional metadata fields
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+<h4 id='checkbox'>Checkbox fields will have SubFields property that is an array of all the field options</h4>
+
+```json
     {
       "Title": "Checkbox",
       "Instructions": "",
@@ -281,6 +370,12 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
       "Type": "checkbox",
       "ID": "Field108"
     },
+```
+Notice how each SubField element also has it's own ID. This is what allows you to "check" more than one option
+
+<h4 id='mc'>Multiple Choice fields have a Choices property that is an array of all options</h4>
+
+```json
     {
       "Title": "Multiple Choice",
       "Instructions": "",
@@ -303,6 +398,10 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
       "ID": "Field208",
       "HasOtherField": false
     },
+```
+
+<h4 id='dd'>Dropdown fields also have a Choices property: an array of all options</h4>
+```json
     {
       "Title": "Dropdown",
       "Instructions": "",
@@ -540,84 +639,7 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
     }
   ]
 }
-
 ```
-
-This endpoint retrieves a specific form. To identify the desired form, you can either use the form hash or the form title. 
-
-<aside class="notice">You can find the form identifier in either the Easy to Remember or the Permanent form URLs</aside>
-
-### HTTP Request
-
-`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}.{format}`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-subdomain | Your account subdomain/username.
-format    | Either 'json' or 'xml' is required. This will determine response format
-identifier| The title or hash of the form to retrieve
-
-### Query Parameters
-
-Parameter          | Default | Description
------------------- | ------- | -----------
-includeTodaysCount | false   | If set to true, includes the number of entries received today
-pretty             | false   | If set to true, returns the result in a "pretty print" format
-
-## Get Form Fields
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "Forms": [
-    {
-      "Name": "Wufoo API Example",
-      "Description": "This is my form. Please fill it out. It's awesome!",
-      "RedirectMessage": "Success! Thanks for filling out my form!",
-      "Url": "wufoo-api-example",
-      "Email": "",
-      "IsPublic": "1",
-      "Language": "english",
-      "StartDate": "2000-01-01 12:00:00",
-      "EndDate": "2030-01-01 12:00:00",
-      "EntryLimit": "0",
-      "DateCreated": "0000-00-00 00:00:00",
-      "DateUpdated": "0000-00-00 00:00:00",
-      "Hash": "s1afea8b1vk0jf7",
-      "LinkFields": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json",
-      "LinkEntries": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json",
-      "LinkEntriesCount": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json"
-    }
-  ]
-}
-
-```
-
-This endpoint retrieves the field structure for a specific form.
-
-<aside class="notice">You'll use the same form identifier as you would for our Form request</aside>
-
-### HTTP Request
-
-`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/fields.{format}`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-subdomain | Your account subdomain/username.
-format    | Either 'json' or 'xml' is required. This will determine response format
-identifier| The title or hash of the form to retrieve
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-system    | false   | If set to true, includes additional metadata fields
-pretty    | false   | If set to true, returns the result in a "pretty print" format
 
 # Entries
 

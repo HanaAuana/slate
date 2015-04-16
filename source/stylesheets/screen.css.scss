@@ -413,6 +413,13 @@ html, body {
     font-size: 10px;
   }
 
+  h4{
+    text-transform: none;
+    clear: both;
+    font-size: 13px;
+    font-weight: normal;
+  }
+
   hr {
     margin: 2em 0;
     border-top: 2px solid $examples-bg;
