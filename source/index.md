@@ -61,7 +61,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 url = 'https://fishbowl.wufoo.com/api/v3/forms.json'
-auth = HTTPBasicAuth('M8X9-0MP5-63FD-EUG8', 'footastic')
+auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
 requests.get(url, auth=auth)
 ```
 
@@ -97,7 +97,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 
 url = 'https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true'
-auth = HTTPBasicAuth('M8X9-0MP5-63FD-EUG8', 'footastic')
+auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
 requests.get(url, auth=auth)
 r.json()
 ```
