@@ -62,10 +62,11 @@ from requests.auth import HTTPBasicAuth
 
 url = 'https://fishbowl.wufoo.com/api/v3/forms.json'
 auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
-requests.get(url, auth=auth)
+response  =requests.get(url, auth=auth)
+response.json()
 ```
 
-> Make sure to replace `AOI6-LFKL-VM1Q-IEX9` with your API key. The second value `footastic` is required, but can be anything
+> Make sure to replace `AOI6-LFKL-VM1Q-IEX9` with your API key and `fishbowl` with your own subdomain. The second value `footastic` is required, but can be anything
 
 Wufoo uses [Basic Auth](http://www.ietf.org/rfc/rfc2617.txt) with API Keys to allow access to the API. 
 
@@ -85,11 +86,8 @@ You'll need to replace 'username' with your API key, and password with any value
 
 ## Get All Forms
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true"
 ```
 
 ```python
@@ -98,15 +96,11 @@ from requests.auth import HTTPBasicAuth
 
 url = 'https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true'
 auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
-requests.get(url, auth=auth)
-r.json()
+response = requests.get(url, auth=auth)
+response.json()
 ```
 
-```shell
-curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true"
-```
-
-> The above request returns JSON structured like this:
+> The above request produces output in this format:
 
 ```json
 {
@@ -197,25 +191,21 @@ Remember you'll need to authenticate to access this or any other resource
 
 ## Get a Specific Form
 
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json?pretty=true"
 ```
 
-> The above command returns JSON structured like this:
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+url = 'https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json?pretty=true'
+auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
+response = requests.get(url, auth=auth)
+response.json()
+```
+
+> The above request produces output in this format:
 
 ```json
 {
@@ -272,7 +262,17 @@ pretty             | false   | If set to true, returns the result in a "pretty p
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json?pretty=true"
 ```
 
-> The above command returns JSON structured like this:
+```python
+import requests
+from requests.auth import HTTPBasicAuth
+
+url = 'https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json?pretty=true'
+auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
+response = requests.get(url, auth=auth)
+response.json()
+```
+
+> The above request produces output in this format:
 
 ```json
 {
@@ -339,6 +339,17 @@ Parameter | Default | Description
 --------- | ------- | -----------
 system    | false   | If set to true, includes additional metadata fields
 pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+<b>Most of the properties for a Field object match the options set in your Field Settings. Here a few:</b>
+
+Title - The Field Label.
+
+Instructions - The Instructions for User (if any).
+
+ClassNames - Any values that were added to the CSS Keywords option in the Form Builder.
+
+ID - The API ID for that field. This is what you'll use for submitting new entries, or using URL Modification and Templating
+
 
 <h4 id='checkbox'>Checkbox fields will have SubFields property that is an array of all the field options</h4>
 
@@ -459,6 +470,9 @@ Notice how each SubField element also has it's own ID. This is what allows you t
       "Type": "file",
       "ID": "Field210"
     },
+```
+<h4 id='address'>Address fields have a SubFields property with one element for each part of the address</h4>
+```json
     {
       "Title": "Address",
       "Instructions": "",
@@ -561,6 +575,9 @@ Notice how each SubField element also has it's own ID. This is what allows you t
       "Type": "money",
       "ID": "Field222"
     },
+```
+<h4 id='likert'>Likert fields have a SubFields propertyfor the "rows" and a Choices property for the "columns"</h4>
+```json
     {
       "Title": "Likert",
       "Instructions": "",
@@ -617,6 +634,9 @@ Notice how each SubField element also has it's own ID. This is what allows you t
       "Type": "rating",
       "ID": "Field223"
     },
+```
+<h4 id='meta'>These are the default metadata fields</h4>
+```json
     {
       "Title": "Date Created",
       "Type": "date",
@@ -640,6 +660,79 @@ Notice how each SubField element also has it's own ID. This is what allows you t
   ]
 }
 ```
+<h4 id='system'>Here are the System Fields</h4>
+
+```json
+    {
+      "Title":"Payment Status",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"Status"
+    },
+    {
+      "Title":"Payment Total",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"PurchaseTotal"
+    },
+    {
+      "Title":"Payment Currency",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"Currency"
+    },
+    {
+      "Title":"Payment Confirmation",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"TransactionId"
+    },
+    {
+      "Title":"Payment Merchant",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"MerchantType"
+    },
+    {
+      "Title":"IP Address",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"IP"
+    },
+    {
+      "Title":"Last Page Accessed",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"LastPage"
+    },
+    {
+      "Title":"Completion Status",
+      "IsSystem":true,
+      "Type":"text",
+      "ID":"CompleteSubmission"
+    }
+```
+These are only included if you set the `system=true` query parameter
+If you set `system` to any value, the fields will be included, so if you don't want the System Fields, leave the `system` paramter out (Don't just set it to `false`). Also available in the Entries API for more details on the [System Fields](/#entries-system)
+
+<b>The System Fields are:</b>
+
+IP - The IP Address of the user submitting the form.
+
+Last Page Accessed - If a user did not complete the form, this number represents the last page the user did submit.
+
+Completion Status - Is a one or zero, representing either completed (1) or incomplete.
+
+Status - Indicates what state your payment is in. An example is ‘Paid’. To see more payment types, check out the payment status documentation
+
+PurchaseTotal - The total purchase, after discounts, etc.
+
+Currency - The type of currency. An example is USD.
+
+TransactionId - The confirmation number sent back from the merchant gateway.
+
+MerchantType - The merchant name. An example is authnet
+
 
 # Entries
 
@@ -668,7 +761,7 @@ Parameter | Default | Description
 system    | false   | If set to true, includes additional metadata fields
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 pageStart | 0       | The entry that the request will start from
-pageSize  | 25      | The number of entries returned in the request
+pageSize  | 25      | The number of entries returned in the request (Maximum of 100)
 
 <b>Every Entries API call returns five fields with every request. The Default Fields are:</b>
 
@@ -682,7 +775,7 @@ DateUpdated - The date that this entry was edited through the Entry Manager. If 
 
 UpdatedBy - The user name of the person who updated the entry in the Entry Manager will appear in this element.
 
-<b>The System Fields are:</b>
+<b id='entries-system'>The System Fields are:</b>
 
 IP - The IP Address of the user submitting the form.
 
@@ -700,12 +793,190 @@ TransactionId - The confirmation number sent back from the merchant gateway.
 
 MerchantType - The merchant name. An example is authnet
 
+### Filtering
 
-## Get Form Entry Count
+You can filter an Entries API request, similar to how the Wufoo [Entry Manager](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#filter) works. Here's the format:
+
+`Filter{##}={ID}+{Operator}+{Value}&match={Grouping}`
+
+Parameter   | Description
+----------- | -----------
+Filter{##}  | {##} should just be a unique number to identify each filter (1, 2, 3, etc.)
+{ID}        | The API Field ID for the field you want to use. These values are the same as the "ID" property in a [Fields](/#get-form-fields) request
+{Operator}  | The comparison that will be used with the filter. See full list below.
+{Value}     | The value to match with your filter
+{Grouping}  | Allows you group your filters as 'AND' (all must match) or 'OR' (at least one must match)
+
+<aside class="notice">We do not adjust your input fiter date/time, so all dates/times are interpreted as Eastern Standard Time (UTC - 5)</aside>
+
+Here's an example:
+
+`https://fishbowl.wufoo.com/api/v3/entries/s1afea8b1vk0jf7.json?Filter1=EntryId+Is_after+1&Filter2=EntryId+Is_before+200&match=AND`
+
+<b>Valid Operators</b>
+
+- Contains
+- Does_not_contain
+- Begins_with
+- Ends_with
+- Is_less_than
+- Is_greater_than
+- Is_on
+- Is_before
+- Is_after
+- Is_not_equal_to
+- Is_equal_to
+- Is_not_NULL
+
+### Sorting
+
+Sorting can also be applied using additional query parameters in this format:
+
+`sort={ID}&sortDirection={DESC|ASC}`
+
+Parameter    | Default | Description
+------------ | ------- | -----------
+{ID}         | N/A     | The API Field ID for the field you want to use. These values are the same as the "ID" property in a [Fields](http://localhost:4567/#get-form-fields) request
+sortDirection | ASC     | The order to sort returned entries: ASC (lowest to highest) or DESC (highest to lowest)
+
+Example: 
+
+`https://fishbowl.wufoo.com/api/v3/entries/s1afea8b1vk0jf7.json?sort=EntryId&sortDirection=DESC`
+
+## Get Form Entries Count
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/entries/count.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json?pretty=true"
+```
+> The above request produces output in this format:
+
+```json
+{
+  "EntryCount" : "8"
+}
+```
 
 ## Get Form Comments
 
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json?pretty=true"
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+entryId   | N/A     | If set to a number, will only return comments for the specific entry
+pageStart | 0       | The entry that the request will start from
+pageSize  | @todo   | @todo
+
+> The above request produces output in this format:
+
+```json
+{
+  "Comments" : [
+    {
+      "CommentId" : "4",
+      "EntryId" : "6",
+      "Text" : "Here's another comment",
+      "CommentedBy" : "fishbowl",
+      "DateCreated" : "2015-04-20 15:37:56"
+    },
+    {
+      "CommentId" : "2",
+      "EntryId" : "8",
+      "Text" : "Test Comment",
+      "CommentedBy" : "fishbowl",
+      "DateCreated" : "2015-04-20 15:37:42"
+    },
+    {
+      "CommentId" : "3",
+      "EntryId" : "8",
+      "Text" : "Another Comment",
+      "CommentedBy" : "fishbowl",
+      "DateCreated" : "2015-04-20 15:37:47"
+    }
+  ]
+}
+```
+
+<b>Here are the properties of each Comment:</b>
+
+CommentId - A unique ID for this comment.
+
+CommentedBy - The name of the person who commented on this entry.
+
+DateCreated - The date on which the comment was made.
+
+EntryId - Is the unique ID of the entry to which this comment is associated.
+
+Text - The comment itself.
+
 ## Get Form Comments Count
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json?pretty=true"
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments/count.{format}`
+
+
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+
+> The above request produces output in this format:
+
+```json
+{
+  "Count" : 3
+}
+```
 
 ## Submit Entry
 
@@ -716,6 +987,8 @@ MerchantType - The merchant name. An example is authnet
 ## Get Specific Report
 
 ## Get Report Entries
+
+## Get Report Entries Count
 
 ## Get Report Fields
 
