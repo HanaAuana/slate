@@ -738,6 +738,122 @@ MerchantType - The merchant name. An example is authnet
 
 ## Get Form Entries
 
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/wufoo-api-example/entries.json?pretty=true&sort=EntryId&sortDirection=DESC"
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Entries" : [
+    {
+      "EntryId" : "9",
+      "Field105" : "Some Text",
+      "Field106" : "123",
+      "Field107" : "Here is a Paragraph field. It can hold more text than a regular Single Line Text field. \r\nThis is a second line of text in the same field.",
+      "Field108" : "Check One",
+      "Field109" : "Check Two",
+      "Field110" : "Check Three",
+      "Field208" : "MC Two",
+      "Field209" : "Dropdown Three",
+      "Field1" : "Wufoo",
+      "Field2" : "Test",
+      "Field210" : "test.txt (https://fishbowl.wufoo.com/cabinet/s1afea8b1vk0jf7/gTVeAerMQyk%3D/test.txt)",
+      "Field211" : "123 Street",
+      "Field212" : "",
+      "Field213" : "City",
+      "Field214" : "CA",
+      "Field215" : "12445",
+      "Field216" : "United States",
+      "Field217" : "2015-04-20",
+      "Field218" : "test@wufoo.com",
+      "Field219" : "00:34:56",
+      "Field220" : "1231231234",
+      "Field221" : "http://www.wufoo.com",
+      "Field222" : "100.99",
+      "Field4" : "Strongly Agree",
+      "Field5" : "Agree",
+      "Field6" : "Strongly Agree",
+      "Field223" : "5",
+      "DateCreated" : "2015-04-20 15:50:34",
+      "CreatedBy" : "public",
+      "DateUpdated" : "",
+      "UpdatedBy" : null
+    },
+...
+    {
+      "EntryId" : "2",
+      "Field105" : "",
+      "Field106" : "",
+      "Field107" : "",
+      "Field108" : "",
+      "Field109" : "",
+      "Field110" : "",
+      "Field208" : "",
+      "Field209" : "",
+      "Field1" : "Amber",
+      "Field2" : "Des",
+      "Field210" : "",
+      "Field211" : "",
+      "Field212" : "",
+      "Field213" : "",
+      "Field214" : "",
+      "Field215" : "",
+      "Field216" : "",
+      "Field217" : "",
+      "Field218" : "",
+      "Field219" : "",
+      "Field220" : "",
+      "Field221" : "",
+      "Field222" : null,
+      "Field4" : "Agree",
+      "Field5" : "Agree",
+      "Field6" : "Disagree",
+      "Field223" : "",
+      "DateCreated" : "2008-11-24 09:46:04",
+      "CreatedBy" : "public",
+      "DateUpdated" : "",
+      "UpdatedBy" : null
+    },
+    {
+      "EntryId" : "1",
+      "Field105" : "",
+      "Field106" : "",
+      "Field107" : "",
+      "Field108" : "",
+      "Field109" : "",
+      "Field110" : "",
+      "Field208" : "",
+      "Field209" : "",
+      "Field1" : "Tim",
+      "Field2" : "Sabat",
+      "Field210" : "",
+      "Field211" : "",
+      "Field212" : "",
+      "Field213" : "",
+      "Field214" : "",
+      "Field215" : "",
+      "Field216" : "",
+      "Field217" : "",
+      "Field218" : "",
+      "Field219" : "",
+      "Field220" : "",
+      "Field221" : "",
+      "Field222" : null,
+      "Field4" : "Strongly Agree",
+      "Field5" : "Strongly Agree",
+      "Field6" : "Agree",
+      "Field223" : "",
+      "DateCreated" : "2008-11-24 09:45:28",
+      "CreatedBy" : "public",
+      "DateUpdated" : "",
+      "UpdatedBy" : null
+    }
+  ]
+}
+```
+
 This endpoint retrieves the entries from a specific form. 
 
 <aside class="notice">To identify the desired form, use the form hash or the form title, just like the Form request. </aside>
@@ -745,6 +861,7 @@ This endpoint retrieves the entries from a specific form.
 ### HTTP Request
 
 `GET http://{subdomain}.wufoo.com/api/v3/forms/entries/{identifier}.{format}`
+
 
 ### URL Parameters
 
