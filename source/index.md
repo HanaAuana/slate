@@ -123,6 +123,7 @@ response.json()
       "LinkEntries" : "https://fishbowl.wufoo.com/api/v3/forms/psy5irt0bq4brj/entries.json?pretty=true",
       "LinkEntriesCount" : "https://fishbowl.wufoo.com/api/v3/forms/psy5irt0bq4brj/entries/count.json?pretty=true"
     },
+    ...
     {
       "Name" : "Tiny Form",
       "Description" : "This is my form. Please fill it out. It's awesome!",
@@ -182,7 +183,7 @@ format    | Either 'json' or 'xml' is required. This will determine response for
 
 Parameter          | Default | Description
 ------------------ | ------- | -----------
-includeTodaysCount | false   | If set to true, includes the number of entries received today
+includeTodayCount | false   | If set to true, includes the number of entries received today
 pretty             | false   | If set to true, returns the result in a "pretty print" format
 
 <aside class="success">
@@ -253,7 +254,7 @@ identifier| The title or hash of the form to retrieve
 
 Parameter          | Default | Description
 ------------------ | ------- | -----------
-includeTodaysCount | false   | If set to true, includes the number of entries received today
+includeTodayCount  | false   | If set to true, includes the number of entries received today
 pretty             | false   | If set to true, returns the result in a "pretty print" format
 
 ## Get Form Fields
@@ -962,6 +963,17 @@ Example:
 
 ## Get Form Entries Count
 
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json?pretty=true"
+```
+> The above request produces output in this format:
+
+```json
+{
+  "EntryCount" : "8"
+}
+```
+
 ### HTTP Request
 
 `GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/entries/count.{format}`
@@ -980,44 +992,11 @@ Parameter | Default | Description
 --------- | ------- | -----------
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
-```shell
-curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json?pretty=true"
-```
-> The above request produces output in this format:
-
-```json
-{
-  "EntryCount" : "8"
-}
-```
-
 ## Get Form Comments
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json?pretty=true"
 ```
-
-### HTTP Request
-
-`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments.{format}`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-subdomain | Your account subdomain/username.
-format    | Either 'json' or 'xml' is required. This will determine response format
-identifier| The title or hash of the form to retrieve
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-pretty    | false   | If set to true, returns the result in a "pretty print" format
-entryId   | N/A     | If set to a number, will only return comments for the specific entry
-pageStart | 0       | The entry that the request will start from
-pageSize  | @todo   | @todo
-
 > The above request produces output in this format:
 
 ```json
@@ -1048,6 +1027,27 @@ pageSize  | @todo   | @todo
 }
 ```
 
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+entryId   | N/A     | If set to a number, will only return comments for the specific entry
+pageStart | 0       | The entry that the request will start from
+pageSize  | 25      | The number of entries returned in the request (Maximum of 100)
+
 <b>Here are the properties of each Comment:</b>
 
 CommentId - A unique ID for this comment.
@@ -1066,11 +1066,17 @@ Text - The comment itself.
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json?pretty=true"
 ```
 
+> The above request produces output in this format:
+
+```json
+{
+  "Count" : 3
+}
+```
+
 ### HTTP Request
 
 `GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments/count.{format}`
-
-
 
 ### URL Parameters
 
@@ -1087,13 +1093,7 @@ Parameter | Default | Description
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
 
-> The above request produces output in this format:
 
-```json
-{
-  "Count" : 3
-}
-```
 
 ## Submit Entry
 
@@ -1101,19 +1101,728 @@ pretty    | false   | If set to true, returns the result in a "pretty print" for
 
 ## Get All Reports
 
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports.json?pretty=true"
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Reports" : [
+    {
+      "Name" : "Colors",
+      "IsPublic" : "0",
+      "Url" : "colors",
+      "Description" : null,
+      "DateCreated" : "0000-00-00 00:00:00",
+      "DateUpdated" : "0000-00-00 00:00:00",
+      "Hash" : "mbrtcpw036ecgn",
+      "LinkFields" : "https://fishbowl.wufoo.com/api/v3/reports/mbrtcpw036ecgn/fields.json?pretty=true",
+      "LinkEntries" : "https://fishbowl.wufoo.com/api/v3/reports/mbrtcpw036ecgn/entries.json?pretty=true",
+      "LinkEntriesCount" : "https://fishbowl.wufoo.com/api/v3/reports/mbrtcpw036ecgn/entries/count.json?pretty=true",
+      "LinkWidgets" : "https://fishbowl.wufoo.com/api/v3/reports/mbrtcpw036ecgn/widgets.json?pretty=true"
+    },
+    {
+      "Name" : "Example Report",
+      "IsPublic" : "0",
+      "Url" : "example-report",
+      "Description" : "This is my report. View it in all its glory!",
+      "DateCreated" : "2015-04-21 11:02:04",
+      "DateUpdated" : "2015-04-21 11:02:04",
+      "Hash" : "qa4d98l1ib9or7",
+      "LinkFields" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json?pretty=true",
+      "LinkEntries" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json?pretty=true",
+      "LinkEntriesCount" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json?pretty=true",
+      "LinkWidgets" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json?pretty=true"
+    },
+    {
+      "Name" : "Names",
+      "IsPublic" : "1",
+      "Url" : "names",
+      "Description" : null,
+      "DateCreated" : "0000-00-00 00:00:00",
+      "DateUpdated" : "0000-00-00 00:00:00",
+      "Hash" : "z1qlusp218ylc12",
+      "LinkFields" : "https://fishbowl.wufoo.com/api/v3/reports/z1qlusp218ylc12/fields.json?pretty=true",
+      "LinkEntries" : "https://fishbowl.wufoo.com/api/v3/reports/z1qlusp218ylc12/entries.json?pretty=true",
+      "LinkEntriesCount" : "https://fishbowl.wufoo.com/api/v3/reports/z1qlusp218ylc12/entries/count.json?pretty=true",
+      "LinkWidgets" : "https://fishbowl.wufoo.com/api/v3/reports/z1qlusp218ylc12/widgets.json?pretty=true"
+    }
+  ]
+}
+```
+
+This endpoint retrieves all reports.
+
+### HTTP Request
+
+`GET https://{subdomain}.wufoo.com/api/v3/reports.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+
+### Query Parameters
+
+Parameter          | Default | Description
+------------------ | ------- | -----------
+pretty             | false   | If set to true, returns the result in a "pretty print" format
+
 ## Get Specific Report
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7.json?pretty=true"
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Reports" : [
+    {
+      "Name" : "Example Report",
+      "IsPublic" : "0",
+      "Url" : "example-report",
+      "Description" : "This is my report. View it in all its glory!",
+      "DateCreated" : "2015-04-21 11:02:04",
+      "DateUpdated" : "2015-04-21 11:02:04",
+      "Hash" : "qa4d98l1ib9or7",
+      "LinkFields" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json?pretty=true",
+      "LinkEntries" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json?pretty=true",
+      "LinkEntriesCount" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json?pretty=true",
+      "LinkWidgets" : "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json?pretty=true"
+    }
+  ]
+}
+```
+
+This endpoint retrieves a specific report. To identify the desired report, you can either use the report hash or the report title. 
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}.{format}`
+
+<aside class="notice">You can find the report identifier in the report URL, or through a <a href='/#get-all-reports'>Get All Reports</a> request</aside>
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the report to retrieve
+
+### Query Parameters
+
+Parameter          | Default | Description
+------------------ | ------- | -----------
+pretty             | false   | If set to true, returns the result in a "pretty print" format
 
 ## Get Report Entries
 
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json?pretty=true"
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Entries" : [
+    {
+      "EntryId" : "1",
+      "Field105" : "",
+      "Field106" : "",
+      "Field107" : "",
+      "Field108" : "",
+      "Field208" : "",
+      "Field209" : "",
+      "Field1" : "Tim",
+      "Field210" : "",
+      "Field211" : "",
+      "Field217" : "",
+      "DateCreated" : "2008-11-24 09:45:28"
+    },
+    {
+      "EntryId" : "2",
+      "Field105" : "",
+      "Field106" : "",
+      "Field107" : "",
+      "Field108" : "",
+      "Field208" : "",
+      "Field209" : "",
+      "Field1" : "Amber",
+      "Field210" : "",
+      "Field211" : "",
+      "Field217" : "",
+      "DateCreated" : "2008-11-24 09:46:04"
+    },
+...
+    {
+      "EntryId" : "9",
+      "Field105" : "Some Text",
+      "Field106" : "123",
+      "Field107" : "Here is a Paragraph field. It can hold more text than a regular Single Line Text field. \r\nThis is a second line of text in the same field.",
+      "Field108" : "Check One",
+      "Field208" : "MC Two",
+      "Field209" : "Dropdown Three",
+      "Field1" : "Wufoo",
+      "Field210" : "test.txt (https://fishbowl.wufoo.com/cabinet/s1afea8b1vk0jf7/gTVeAerMQyk%3D/test.txt)",
+      "Field211" : "123 Street",
+      "Field217" : "2015-04-20",
+      "DateCreated" : "2015-04-20 15:50:34"
+    }
+  ]
+}
+```
+
+This endpoint retrieves the entries from a specific report. 
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/entries/{identifier}.{format}`
+
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+system    | false   | If set to true, includes additional metadata fields
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+<aside class="notice">For more details on entry objects, see <a href='/#get-form-entries'>Get Form Entries</a></aside>
+
 ## Get Report Entries Count
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json?pretty=true"
+```
+> The above request produces output in this format:
+
+```json
+{
+  "EntryCount" : "9"
+}
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}/entries/count.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
 
 ## Get Report Fields
 
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json?pretty=true"
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Fields" : [
+    {
+      "Title" : "Single Line Text",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "text",
+      "ID" : "Field105"
+    },
+    {
+      "Title" : "Number",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "number",
+      "ID" : "Field106"
+    },
+    {
+      "Title" : "Paragraph",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "textarea",
+      "ID" : "Field107"
+    },
+    {
+      "Title" : "Checkbox",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "0",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field108",
+          "Label" : "Check One"
+        },
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field109",
+          "Label" : "Check Two"
+        },
+        {
+          "DefaultVal" : "0",
+          "ID" : "Field110",
+          "Label" : "Check Three"
+        }
+      ],
+      "Type" : "checkbox",
+      "ID" : "Field108"
+    },
+    {
+      "Title" : "Multiple Choice",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Choices" : [
+        {
+          "Label" : "MC One"
+        },
+        {
+          "Label" : "MC Two"
+        },
+        {
+          "Label" : "MC Three"
+        }
+      ],
+      "Type" : "radio",
+      "ID" : "Field208",
+      "HasOtherField" : false
+    },
+    {
+      "Title" : "Dropdown",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Choices" : [
+        {
+          "Label" : ""
+        },
+        {
+          "Label" : "Dropdown One"
+        },
+        {
+          "Label" : "Dropdown Two"
+        },
+        {
+          "Label" : "Dropdown Three"
+        }
+      ],
+      "Type" : "select",
+      "ID" : "Field209",
+      "HasOtherField" : false
+    },
+    {
+      "Title" : "Name",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "",
+          "ID" : "Field1",
+          "Label" : "First"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field2",
+          "Label" : "Last"
+        }
+      ],
+      "Type" : "shortname",
+      "ID" : "Field1"
+    },
+    {
+      "Title" : "File Upload",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "file",
+      "ID" : "Field210"
+    },
+    {
+      "Title" : "Address",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "SubFields" : [
+        {
+          "DefaultVal" : "",
+          "ID" : "Field211",
+          "Label" : "Street Address"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field212",
+          "Label" : "Address Line 2"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field213",
+          "Label" : "City"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field214",
+          "Label" : "State / Province / Region"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field215",
+          "Label" : "Postal / Zip Code"
+        },
+        {
+          "DefaultVal" : "",
+          "ID" : "Field216",
+          "Label" : "Country"
+        }
+      ],
+      "Type" : "address",
+      "ID" : "Field211"
+    },
+    {
+      "Title" : "Date",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "date",
+      "ID" : "Field217"
+    },
+    {
+      "Title" : "Email",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "email",
+      "ID" : "Field218"
+    },
+    {
+      "Title" : "Time",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "time",
+      "ID" : "Field219"
+    },
+    {
+      "Title" : "Phone Number",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "phone",
+      "ID" : "Field220"
+    },
+    {
+      "Title" : "Website",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "url",
+      "ID" : "Field221"
+    },
+    {
+      "Title" : "Amount",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "money",
+      "ID" : "Field222"
+    },
+    {
+      "Title" : "Rating",
+      "Instructions" : "",
+      "IsRequired" : "0",
+      "ClassNames" : "",
+      "DefaultVal" : "",
+      "Page" : "1",
+      "Type" : "rating",
+      "ID" : "Field223"
+    },
+    {
+      "Title" : "Date Created",
+      "Type" : "date",
+      "ID" : "DateCreated"
+    },
+    {
+      "Title" : "Last Updated",
+      "Type" : "date",
+      "ID" : "LastUpdated"
+    }
+  ]
+}
+```
+
+`GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}/fields.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the report to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+system    | false   | If set to true, includes additional metadata fields
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+<aside class="notice">Report fields are the field for the form the report is based on. For more, see <a href='/#get-form-fields'>Get Form Fields</a></aside>
+
 ## Get Widgets
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json?pretty=true"
+```
+> The above request produces output in this format:
+
+```json
+{
+  "Widgets" : [
+    {
+      "Name" : "Graph Widget",
+      "Size" : "small",
+      "Hash" : "jKyonpg4od1IeSBnJxqqc8n0N6kyD38YOofKjPwuslash5MI8=",
+      "Type" : "pie",
+      "TypeDesc" : "Pie Graph"
+    },
+    {
+      "Name" : "Chart Widget",
+      "Size" : "fill",
+      "Hash" : "Dv0H6fRnzFwuBeWzVLhJailsckhmKzVQVjFxPMGI7S4olI=",
+      "Type" : "fieldChart",
+      "TypeDesc" : "Chart"
+    },
+    {
+      "Name" : "Number Widget",
+      "Size" : "fill",
+      "Hash" : "krr7b7sEMLwuslashlfS8PVwuBe7wTk46plu7IwuBeUAZVWrR7qYhgA=",
+      "Type" : "bigNumber",
+      "TypeDesc" : "Number"
+    }
+  ]
+}
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}/widgets.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+Only Chart, Graph, and Number widgets will be included in the request. Any Text or Datagrid widgets will not be shown. Each widget element will have the following properties:
+
+Name - Is the widget name. This is the friendly name you chose when creating this widget.
+
+Size - Graphs (pie, bar, line) have the sizes small, medium and large. Field Charts (fieldChart) have a size of ‘fill’ because they always fill the container they are placed in. Big Numbers (bigNumber) have a size of ‘fixed’ because they are all one size.
+
+Type - The identifier for the widget type. Valid Typeof values are fieldChart, bigNumber, bar, line, and pie.
+
+TypeDesc - A user-friendly version of Typeof.
+
+Hash - An unchanging value representing this widget.
+
+
+<h4 id='embed-widget'>The hash code for a widget can be used to embed the widget using Javascript</h4>
+
+> Example widget embed code:
+
+```html
+<script type="text/javascript">
+  var host = (("https:" == document.location.protocol) ? "https://" : "http://");
+  document.write(unescape("%3Cscript src='" + host + "{subdomain}.wufoo.com/scripts/widget/embed.js?w={Hash}' type='text/javascript'%3E%3C/script%3E"));
+</script>
+```
+
+>Where {subdomain} is your account subdomain and {Hash} is your widget's hash code
 
 # Users
 
 ## Get Users
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/users.json?pretty=true"
+```
+> The above request produces output in this format:
+
+```json
+{
+  "Users" : [
+    {
+      "User" : "fishbowl",
+      "Email" : "fishbowl@wufoo.com",
+      "TimeZone" : "",
+      "Company" : "",
+      "IsAccountOwner" : "1",
+      "CreateForms" : "1",
+      "CreateReports" : "1",
+      "CreateThemes" : "1",
+      "AdminAccess" : "0",
+      "Image" : "boy_1",
+      "ApiKey" : "AOI6-LFKL-VM1Q-IEX9",
+      "LinkForms" : "https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true",
+      "LinkReports" : "https://fishbowl.wufoo.com/api/v3/reports.json?pretty=true",
+      "Hash" : "b1fe5l920lqsh58",
+      "ImageUrlBig" : "https://wufoo.com/images/avatars/big/boy_1.png",
+      "ImageUrlSmall" : "https://wufoo.com/images/avatars/small/boy_1.png",
+      "HttpsEnabled" : "1"
+    },
+    {
+      "User" : "User With No Permissions",
+      "Email" : "fishy@wufoo.com",
+      "TimeZone" : "-12.00",
+      "Company" : "",
+      "IsAccountOwner" : "0",
+      "CreateForms" : "0",
+      "CreateReports" : "0",
+      "CreateThemes" : "0",
+      "AdminAccess" : "0",
+      "Image" : "animal_10",
+      "ApiKey" : "EL2P-RPCO-HD1W-SX96",
+      "LinkForms" : "https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true",
+      "LinkReports" : "https://fishbowl.wufoo.com/api/v3/reports.json?pretty=true",
+      "Hash" : "k78jvgk0l2lbz7",
+      "ImageUrlBig" : "https://wufoo.com/images/avatars/big/animal_10.png",
+      "ImageUrlSmall" : "https://wufoo.com/images/avatars/small/animal_10.png",
+      "HttpsEnabled" : "1"
+    },
+    {
+      "User" : "Administrator",
+      "Email" : "test@wufoo.com",
+      "TimeZone" : "",
+      "Company" : "",
+      "IsAccountOwner" : "0",
+      "CreateForms" : "1",
+      "CreateReports" : "1",
+      "CreateThemes" : "1",
+      "AdminAccess" : "1",
+      "Image" : "doll_10",
+      "ApiKey" : "D71P-FARY-REB1-GN4W",
+      "LinkForms" : "https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true",
+      "LinkReports" : "https://fishbowl.wufoo.com/api/v3/reports.json?pretty=true",
+      "Hash" : "n1ojkirv01rmc7h",
+      "ImageUrlBig" : "https://wufoo.com/images/avatars/big/doll_10.png",
+      "ImageUrlSmall" : "https://wufoo.com/images/avatars/small/doll_10.png",
+      "HttpsEnabled" : "1"
+    }
+  ]
+}
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/users.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+User properties are as follows:
+
+User: Is the user name. This is the friendly name you chose when creating this user.
+
+Email: The email address on file for this user.
+
+Timezone: an offset from UTC.
+
+Company: The company defined when this user was created.
+
+IsAccountOwner: Binary value indicating a yes (1) or (0). If the user is an account owner the Create(Forms/Reports/Themes) and AdminAccess values are ignored, as an AccountOwner has full rights to the account.
+
+CreateForms: Binary value indicating whether or not this user may create forms.
+
+CreateReports: Binary value indicating whether or not this user may create reports.
+
+CreateThemes: Binary value indicating whether or not this user may create themes.
+
+AdminAccess: This is an all-inclusive access right. In other words, if a user has this permission, they may create forms/reports/themes and administer users.
+
+ApiKey: The authentication token permitting the user to make requests against the system.
+
+Hash: An unchanging value representing the user.
+
+ImageUrl: Links to the images used for the user's avatar in Wufoo
+
+HttpsEnabled: No longer needed, since all Wufoo forms now use HTTPS unless you decide to [manually disable](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/URL-Modifications#ssl) it through the link or embed code
 
 # Webhooks
 
