@@ -349,7 +349,7 @@ Instructions - The Instructions for User (if any).
 
 ClassNames - Any values that were added to the CSS Keywords option in the Form Builder.
 
-ID - The API ID for that field. This is what you'll use for submitting new entries, or using URL Modification and Templating
+ID - The API ID for that field. This is what you'll use for [submitting new entries](/#submit-entry), or using URL Modification and Templating
 
 
 <h4 id='checkbox'>Checkbox fields will have SubFields property that is an array of all the field options</h4>
@@ -1092,10 +1092,38 @@ Parameter | Default | Description
 --------- | ------- | -----------
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
+## Submit Entry 
 
+@todo
 
+```shell
+curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field105=API-Test" -d "Field106=42" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json"
+```
+> The above request will recieve a response in this format:
 
-## Submit Entry
+```json
+{
+  "Success": 1,
+  "EntryId": 10,
+  "EntryLink": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json?Filter1=EntryId+Is_equal_to+10"
+}
+```
+
+### HTTP Request
+
+`POST http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/entries.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### POST Parameters
+
+The parameters used to submit an entry should match the API ID values for each field. You can find these values through a [Get Form Fields](/#get-form-fields) request, or through your form's [API Information](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Templating#api) page
 
 # Reports
 
@@ -1828,9 +1856,103 @@ HttpsEnabled: No longer needed, since all Wufoo forms now use HTTPS unless you d
 
 ## Add Webhook
 
+```shell
+curl -X PUT -d "url=https://www.wufoo.com" -d "handshakeKey=secret123" -d "metadata=true" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/webhooks.json"
+```
+> The above request will recieve a response in this format:
+
+```json
+{
+  "WebHookPutResult": {
+    "Hash": "h1elg2i41wauer1"
+  }
+}
+```
+
+### HTTP Request
+
+`PUT http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/webhooks.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### PUT Parameters
+
+Parameter    | Default | Description
+------------ | ------- | -----------
+url          | N/A     | Required. This represents the URL that the Webhook will POST to when an entry is submitted. URL must be valid.
+handshakeKey | None    | Optional. Sets the handshakeKey property, to allow you to reject random POSTs
+metadata     | false   | Optional. If set to true, the Webhook will include form/field structure data in each POST (required for some integrations)
+
 ## Delete Webhook
+
+```shell
+curl -X DELETE -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/webhooks/h1elg2i41wauer1.json"
+```
+> The above request produces output in this format:
+
+```json
+{
+  "WebHookDeleteResult":{
+    "Hash":"h1elg2i41wauer1"
+  }
+}
+```
+
+### HTTP Request
+
+`DELETE http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/webhooks/{webhookHash}.{format}`
+
+### URL Parameters
+
+Parameter   | Description
+----------- | -----------
+subdomain   | Your account subdomain/username.
+format      | Either 'json' or 'xml' is required. This will determine response format
+identifier  | The title or hash of the form to retrieve
+webhookHash | The hash for the webhook you want to delete (Is returned in the initial PUT request response)
 
 # Login
 
 ## Retrieve API Key
+
+> integrationKey and password values have been redacted. In an actual request, substitute your own key and the user's password
+
+```shell
+curl -X POST -d "integrationKey=XXX" -d "email=fishbowl@wufoo.com" -d "password=XXX" -d "subdomain=fishbowl" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://wufoo.com/api/v3/login.json"
+```
+> The above request will recieve a response in this format:
+
+```json
+{
+  "ApiKey":"AOI6-LFKL-VM1Q-IEX9",
+  "UserLink":"https://fishbowl.wufoo.com/api/v3/users/b1fe5l920lqsh58.json",
+  "Subdomain":"fishbowl"
+}
+```
+
+### HTTP Request
+
+`POST http://wufoo.com/api/v3/login.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+format    | Either 'json' or 'xml' is required. This will determine response format
+
+### POST Parameters
+
+Parameter      | Description
+-------------- | -----------
+integrationKey | Required. This is your Login integration key. You can apply [here](https://master.wufoo.com/forms/integration-key-application/)
+email          | Required. The user’s email, which acts as the identifier for their account.
+password       | Required. The user's password
+subdomain      | Optional. The user's subdomain. Is required if the email belongs to a sub-user or the email address is used on multiple accounts.
+<aside class="warning">If you submit a request without the subdomain, but there's a conflict, the request will return a 409 error</aside>
 
