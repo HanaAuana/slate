@@ -31,7 +31,7 @@ format    | Either 'json' or 'xml' is required. This will determine response for
 
 Parameter      | Description
 -------------- | -----------
-integrationKey | Required. This is your Login integration key. You can apply [here](https://master.wufoo.com/forms/integration-key-application/)
+integrationKey | Required. This is your Login integration key. You can apply for one [here](https://master.wufoo.com/forms/integration-key-application/)
 email          | Required. The user’s email, which acts as the identifier for their account.
 password       | Required. The user's password
 subdomain      | Optional. The user's subdomain. Is required if the email belongs to a sub-user or the email address is used on multiple accounts.

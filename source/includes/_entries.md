@@ -1,6 +1,6 @@
 # Entries
 
-## Get Form Entries
+## Form Entries
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/wufoo-api-example/entries.json?pretty=true&sort=EntryId&sortDirection=DESC"
@@ -183,7 +183,7 @@ You can filter an Entries API request, similar to how the Wufoo [Entry Manager](
 Parameter   | Description
 ----------- | -----------
 Filter{##}  | {##} should just be a unique number to identify each filter (1, 2, 3, etc.)
-{ID}        | The API Field ID for the field you want to use. These values are the same as the "ID" property in a [Fields](/#get-form-fields) request
+{ID}        | The API Field ID for the field you want to use. These values are the same as the "ID" property in a [Fields](/#form-fields) request
 {Operator}  | The comparison that will be used with the filter. See full list below.
 {Value}     | The value to match with your filter
 {Grouping}  | Allows you group your filters as 'AND' (all must match) or 'OR' (at least one must match)
@@ -217,14 +217,14 @@ Sorting can also be applied using additional query parameters in this format:
 
 Parameter    | Default | Description
 ------------ | ------- | -----------
-{ID}         | N/A     | The API Field ID for the field you want to use. These values are the same as the "ID" property in a [Fields](http://localhost:4567/#get-form-fields) request
+{ID}         | N/A     | The API Field ID for the field you want to use. These values are the same as the "ID" property in a [Fields](/#form-fields) request
 sortDirection | ASC     | The order to sort returned entries: ASC (lowest to highest) or DESC (highest to lowest)
 
 Example: 
 
 `https://fishbowl.wufoo.com/api/v3/entries/s1afea8b1vk0jf7.json?sort=EntryId&sortDirection=DESC`
 
-## Get Form Entries Count
+## Form Entries Count
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json?pretty=true"
@@ -255,7 +255,7 @@ Parameter | Default | Description
 --------- | ------- | -----------
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
-## Get Form Comments
+## Form Comments
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json?pretty=true"
@@ -323,7 +323,7 @@ EntryId - Is the unique ID of the entry to which this comment is associated.
 
 Text - The comment itself.
 
-## Get Form Comments Count
+## Comments Count
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json?pretty=true"
@@ -386,4 +386,4 @@ identifier| The title or hash of the form to retrieve
 
 ### POST Parameters
 
-The parameters used to submit an entry should match the API ID values for each field. You can find these values through a [Get Form Fields](/#get-form-fields) request, or through your form's [API Information](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Templating#api) page
+The parameters used to submit an entry should match the API ID values for each field. You can find these values through a [Form Fields](/#form-fields) request, or through your form's [API Information](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Templating#api) page

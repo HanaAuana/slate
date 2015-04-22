@@ -1,6 +1,6 @@
 # Reports
 
-## Get All Reports
+## All Reports
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports.json?pretty=true"
@@ -73,7 +73,7 @@ Parameter          | Default | Description
 ------------------ | ------- | -----------
 pretty             | false   | If set to true, returns the result in a "pretty print" format
 
-## Get Specific Report
+## Report
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7.json?pretty=true"
@@ -107,7 +107,7 @@ This endpoint retrieves a specific report. To identify the desired report, you c
 
 `GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}.{format}`
 
-<aside class="notice">You can find the report identifier in the report URL, or through a <a href='/#get-all-reports'>Get All Reports</a> request</aside>
+<aside class="notice">You can find the report identifier in the report URL, or through a <a href='/#reports'>Reports</a> request</aside>
 
 ### URL Parameters
 
@@ -123,7 +123,7 @@ Parameter          | Default | Description
 ------------------ | ------- | -----------
 pretty             | false   | If set to true, returns the result in a "pretty print" format
 
-## Get Report Entries
+## Report Entries
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json?pretty=true"
@@ -203,9 +203,9 @@ Parameter | Default | Description
 system    | false   | If set to true, includes additional metadata fields
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
-<aside class="notice">For more details on entry objects, see <a href='/#get-form-entries'>Get Form Entries</a></aside>
+<aside class="notice">For more details on entry objects, see <a href='/#form-entries'>Form Entries</a></aside>
 
-## Get Report Entries Count
+## Report Entries Count
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json?pretty=true"
@@ -236,7 +236,7 @@ Parameter | Default | Description
 --------- | ------- | -----------
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
-## Get Report Fields
+## Report Fields
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json?pretty=true"
@@ -526,9 +526,9 @@ Parameter | Default | Description
 system    | false   | If set to true, includes additional metadata fields
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
-<aside class="notice">Report fields are the field for the form the report is based on. For more, see <a href='/#get-form-fields'>Get Form Fields</a></aside>
+<aside class="notice">Report fields are the field for the form the report is based on. For more, see <a href='/#form-fields'>Form Fields</a></aside>
 
-## Get Widgets
+## Widgets
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json?pretty=true"

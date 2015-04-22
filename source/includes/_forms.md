@@ -1,6 +1,6 @@
 # Forms
 
-## Get All Forms
+## All Forms
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true"
@@ -106,7 +106,7 @@ pretty             | false   | If set to true, returns the result in a "pretty p
 Remember you'll need to authenticate to access this or any other resource
 </aside>
 
-## Get a Specific Form
+## Form
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json?pretty=true"
@@ -173,7 +173,7 @@ Parameter          | Default | Description
 includeTodayCount  | false   | If set to true, includes the number of entries received today
 pretty             | false   | If set to true, returns the result in a "pretty print" format
 
-## Get Form Fields
+## Form Fields
 
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json?pretty=true"
