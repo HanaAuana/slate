@@ -5,7 +5,6 @@ language_tabs:
   - shell: cURL
   - php: PHP
   - python: Python
-  - node: Node
   - ruby: Ruby
 
 toc_footers:
@@ -63,13 +62,44 @@ if($resultStatus['http_code'] == 200) {                     //8
 ```
 
 ```python
-import requests
-from requests.auth import HTTPBasicAuth
+# Using urllib2 we'll need an HTTPPasswordMgr, and HTTPBasicAuthHandler
+import urllib2
 
-url = 'https://fishbowl.wufoo.com/api/v3/forms.json'
-auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
-response  =requests.get(url, auth=auth)
-response.json()
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+# Create a password manager
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+
+# Add the username and password (API key and nonsense value)
+password_manager.add_password(None, base_url, username, password)
+
+# Create the AuthHandler
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+
+# Create and install an opener using the AuthHandler
+opener = urllib2.build_opener(handler)
+urllib2.install_opener(opener)
+
+# Now each request we make will be authenticated
+response = urllib2.urlopen(base_url+'forms.json')
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+uri = URI.parse("https://fishbowl.wufoo.com/api/v3/forms.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth("AOI6-LFKL-VM1Q-IEX9", "footastic")
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+puts JSON.pretty_generate(JSON[response.body])
 ```
 
 > Make sure to replace `AOI6-LFKL-VM1Q-IEX9` with your API key and `fishbowl` with your own subdomain. The second value `footastic` is required, but can be anything
