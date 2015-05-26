@@ -357,8 +357,6 @@ pretty    | false   | If set to true, returns the result in a "pretty print" for
 
 ## Submit Entry 
 
-@todo
-
 ```shell
 curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field105=API-Test" -d "Field106=42" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json"
 ```
@@ -371,6 +369,8 @@ curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field105=API-Test" -d "Field
   "EntryLink": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json?Filter1=EntryId+Is_equal_to+10"
 }
 ```
+
+This endpoint allows you to submit a new entry to a specific form. 
 
 ### HTTP Request
 
@@ -386,4 +386,19 @@ identifier| The title or hash of the form to retrieve
 
 ### POST Parameters
 
-The parameters used to submit an entry should match the API ID values for each field. You can find these values through a [Form Fields](/#form-fields) request, or through your form's [API Information](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Templating#api) page
+To submit an entry to a form, you'll need to match the API ID values for each field in the form. You can find these values through a [Form Fields](/#form-fields) request, or through your form's [API Information](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Templating#api) page.
+
+The POST request should contain the data for the new entry submission in key/value pairs. The key will be the API ID in the format of `Field##`, where `##` is the API ID for the given field. The value will be your desired entry data, which will be recorded as if a user had submitted that value on the form manually.
+
+Here's an example of what the key/value pairs might look like:
+
+`{
+    "Field1":   "Wufoo", 
+    "Field2":   "Test", 
+    "Field105": "API-Test",
+    "Field106": "42"
+ }`
+
+### Response @todo
+
+### Restrictions @todo
