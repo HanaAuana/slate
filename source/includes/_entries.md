@@ -366,7 +366,8 @@ curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field105=API-Test" -d "Field
 {
   "Success": 1,
   "EntryId": 10,
-  "EntryLink": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json?Filter1=EntryId+Is_equal_to+10"
+  "EntryLink": "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json?Filter1=EntryId+Is_equal_to+10",
+  "RedirectUrl":"http://wufoo.com"
 }
 ```
 
@@ -399,6 +400,57 @@ Here's an example of what the key/value pairs might look like:
     "Field106": "42"
  }`
 
-### Response @todo
+### Response
+When you make the Entries POST, you'll receive a PostResponse object containing the following:
 
-### Restrictions @todo
+Property    | Description
+---------   | -----------
+Success     | Will be '1' if the submission was a success. If the submission [failed](/#failed-submissions), it will be '0'
+EntryId     | If the submission was a success, this value will be the EntryId assigned to this submission
+EntryLink   | If the submission was a success, this value will be the URL for an [Entries](/#form-entries) request, filtered for this entry
+RedirectUrl | If the form has a [Redirect](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Form-Settings#confirmation) set up, that URL will be included in the response
+
+>Note this POST request is missing a value for Field105 (a required Text field) and has a text value submitted for Field106 (a Number field)
+
+```shell
+curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field106=test" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json"
+```
+
+>Here is the corresponding "failed" PostResponse
+
+```json
+{
+    "RedirectUrl":"http://wufoo.com",
+    "Success":0,
+    "ErrorText":"Errors have been <b>highlighted<\/b> below.",
+    "FieldErrors":[
+        {
+          "ID":"Field105",
+          "ErrorText":"This field is required. Please enter a value."
+        },
+        {
+          "ID":"Field106",
+          "ErrorText":"Please enter a numeric value."
+        }
+    ]
+}
+```
+
+### Failed Submissions
+
+An Entries POST can fail for a few different reasons. A submission through the API must still adhere to any [field validation](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Field-Settings) or [form activity limits](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Form-Settings#limit). If these are not respected, the PostResponse will return with a 'Success' value of '0'. In this case, the PostResponse will contain some alternate properties:
+
+Property    | Description
+---------   | -----------
+Success     | Will be '0' if the submission failed.
+ErrorText   | This is some general text related to the error. Equivalent to what would be shown to the user on the actual form
+FieldErrors | This will be an array of ID and ErrorText pairs for each affected field. These would be any error displayed on the field itself
+RedirectUrl | If the form has a [Redirect](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Form-Settings#confirmation) set up, that URL will be included in the response
+
+### Restrictions
+
+Additionally, it is not possible to make an Entry POST request to a private form, even if the user making the request (the API Key used) has permissions to view/edit that form, or is an Administrator. If you need a "protected" form which can accept submissions via the API, you can use this alternate setup:
+
+1. Set the form to Public in the [Form Manager](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Form-Manager#public).
+2. Add a password to prevent unauthorized access.
+3. Access the form via the API using a key with permissions to view/edit that form.

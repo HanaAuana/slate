@@ -202,7 +202,7 @@ response.json()
     {
       "Title": "Single Line Text",
       "Instructions": "",
-      "IsRequired": "0",
+      "IsRequired": "1",
       "ClassNames": "",
       "DefaultVal": "",
       "Page": "1",
