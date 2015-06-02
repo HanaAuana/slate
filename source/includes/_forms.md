@@ -7,13 +7,23 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
 ```
 
 ```python
-import requests
-from requests.auth import HTTPBasicAuth
+import urllib2
+import json
 
-url = 'https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true'
-auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
-response = requests.get(url, auth=auth)
-response.json()
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms.json')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
 ```
 
 > The above request produces output in this format:
@@ -113,13 +123,23 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
 ```
 
 ```python
-import requests
-from requests.auth import HTTPBasicAuth
+import urllib2
+import json
 
-url = 'https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json?pretty=true'
-auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
-response = requests.get(url, auth=auth)
-response.json()
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7.json')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
 ```
 
 > The above request produces output in this format:
@@ -180,13 +200,23 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
 ```
 
 ```python
-import requests
-from requests.auth import HTTPBasicAuth
+import urllib2
+import json
 
-url = 'https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json?pretty=true'
-auth = HTTPBasicAuth('AOI6-LFKL-VM1Q-IEX9', 'footastic')
-response = requests.get(url, auth=auth)
-response.json()
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/fields.json')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
 ```
 
 > The above request produces output in this format:
@@ -649,3 +679,144 @@ Currency - The type of currency. An example is USD.
 TransactionId - The confirmation number sent back from the merchant gateway.
 
 MerchantType - The merchant name. An example is authnet
+
+## Form Comments
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json?pretty=true"
+```
+
+```python
+import urllib2
+import json
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/comments.json')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Comments" : [
+    {
+      "CommentId" : "4",
+      "EntryId" : "6",
+      "Text" : "Here's another comment",
+      "CommentedBy" : "fishbowl",
+      "DateCreated" : "2015-04-20 15:37:56"
+    },
+    {
+      "CommentId" : "2",
+      "EntryId" : "8",
+      "Text" : "Test Comment",
+      "CommentedBy" : "fishbowl",
+      "DateCreated" : "2015-04-20 15:37:42"
+    },
+    {
+      "CommentId" : "3",
+      "EntryId" : "8",
+      "Text" : "Another Comment",
+      "CommentedBy" : "fishbowl",
+      "DateCreated" : "2015-04-20 15:37:47"
+    }
+  ]
+}
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
+entryId   | N/A     | If set to a number, will only return comments for the specific entry
+pageStart | 0       | The entry that the request will start from
+pageSize  | 25      | The number of entries returned in the request (Maximum of 100)
+
+<b>Here are the properties of each Comment:</b>
+
+CommentId - A unique ID for this comment.
+
+CommentedBy - The name of the person who commented on this entry.
+
+DateCreated - The date on which the comment was made.
+
+EntryId - Is the unique ID of the entry to which this comment is associated.
+
+Text - The comment itself.
+
+## Comments Count
+
+```shell
+curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json?pretty=true"
+```
+
+```python
+import urllib2
+import json
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/comments/count.json')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
+```
+
+> The above request produces output in this format:
+
+```json
+{
+  "Count" : 3
+}
+```
+
+### HTTP Request
+
+`GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/comments/count.{format}`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+subdomain | Your account subdomain/username.
+format    | Either 'json' or 'xml' is required. This will determine response format
+identifier| The title or hash of the form to retrieve
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pretty    | false   | If set to true, returns the result in a "pretty print" format
