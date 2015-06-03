@@ -64,6 +64,32 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 puts JSON.pretty_generate(JSON[response.body])
 ```
 
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/webhooks.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+curl_setopt($curl, CURLOPT_POST, 1);
+curl_setopt($curl, CURLOPT_POSTFIELDS, 'url=https://www.wufoo.com&handshakeKey=secret123&metadata=true');
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200 || $resultStatus['http_code'] == 201) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
+```
+
 > The above request will recieve a response in this format:
 
 ```json
@@ -143,6 +169,30 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 }
 
 puts JSON.pretty_generate(JSON[response.body])
+```
+
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/webhooks/hjnuh251sepi2x.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200 || $resultStatus['http_code'] == 201) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
 ```
 
 > The above request produces output in this format:
