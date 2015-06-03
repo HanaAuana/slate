@@ -92,6 +92,7 @@ html, body {
   // This is the logo at the top of the ToC
   &>img {
     display: block;
+    width:100%;
   }
 
   &>.search {
@@ -445,16 +446,25 @@ html, body {
       padding: 10px;
     }
 
+    tbody{
+      tr {
+        border-bottom: 1px solid #ccc;
+        border-left: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+      }
+    }
+    
+
     tr:last-child {
       border-bottom: 1px solid #ccc;
     }
 
     tr:nth-child(odd)>td {
-      background-color: lighten($main-bg,4.2%);
+      background-color: lighten($main-bg,2.4%);
     }
 
     tr:nth-child(even)>td {
-      background-color: lighten($main-bg,2.4%);
+      background-color: $table-even-bg;
     }
   }
 
@@ -495,6 +505,7 @@ html, body {
     margin-top: 1.5em;
     margin-bottom: 1.5em;
     background: $aside-notice-bg;
+    color: $aside-text;
     line-height: 1.6;
 
     &.warning {
