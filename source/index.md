@@ -31,9 +31,9 @@ and even add or remove Webhooks.
 
 There are wrapper libraries for Ruby, PHP, jQuery, Python, and Node, but you can make requests using any HTTP service. You can view basic code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right. All examples use the 'fishbowl' example subdomain. When making your own requests, be sure to use your own account name/subdomain, and your own API Key
 
-# Authentication
-
 > To authenticate, Wufoo uses HTTP Basic Auth:
+
+# Authentication
 
 ```shell
 # With cURL, you can just pass the "username" and "password" with each request
@@ -42,27 +42,27 @@ curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/for
 
 ```php
 <? php
-$curl = curl_init('https://fishbowl.wufoo.com/api/v3/forms.json');      //1
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);                          //2
-curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');   //3
-curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);                     //4
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/forms.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
 curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
-curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');             //5
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
 
-$response = curl_exec($curl);                                           //6
-$resultStatus = curl_getinfo($curl);                                    //7
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
 
-if($resultStatus['http_code'] == 200) {                     //8
+if($resultStatus['http_code'] == 200) {
     echo htmlentities($response);
 } else {
-    echo 'Call Failed '.print_r($resultStatus);                         //9
+    echo 'Call Failed '.print_r($resultStatus);
 }
 ?>
 ```
 
 ```python
-# Using urllib2 we'll need an HTTPPasswordMgr, and HTTPBasicAuthHandler
+# Using urllib2 we'll need an HTTPPasswordMgr and HTTPBasicAuthHandler
 import urllib2
 
 base_url = 'https://fishbowl.wufoo.com/api/v3/'
@@ -91,14 +91,22 @@ require "net/http"
 require "uri"
 require "json"
 
-uri = URI.parse("https://fishbowl.wufoo.com/api/v3/forms.json")
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
 
+uri = URI.parse(base_url+"forms.json")
+
+# Set up our request using the desired endpoint, and configure the basic auth
 request = Net::HTTP::Get.new(uri.request_uri)
-request.basic_auth("AOI6-LFKL-VM1Q-IEX9", "footastic")
+request.basic_auth(username, password)
 
+# Make our request using https
 response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
   http.request(request)
 }
+
+# Print the output in a "pretty" json format
 puts JSON.pretty_generate(JSON[response.body])
 ```
 
