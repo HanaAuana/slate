@@ -26,6 +26,27 @@ data = json.load(response)
 print json.dumps(data, indent=4, sort_keys=True)
 ```
 
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -142,6 +163,27 @@ data = json.load(response)
 print json.dumps(data, indent=4, sort_keys=True)
 ```
 
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -217,6 +259,27 @@ urllib2.install_opener(opener)
 response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/fields.json')
 data = json.load(response)
 print json.dumps(data, indent=4, sort_keys=True)
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/fields.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
 ```
 
 > The above request produces output in this format:
@@ -706,6 +769,27 @@ data = json.load(response)
 print json.dumps(data, indent=4, sort_keys=True)
 ```
 
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/comments.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -793,6 +877,27 @@ urllib2.install_opener(opener)
 response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/comments/count.json')
 data = json.load(response)
 print json.dumps(data, indent=4, sort_keys=True)
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/comments/count.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
 ```
 
 > The above request produces output in this format:
