@@ -47,6 +47,28 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 puts JSON.pretty_generate(JSON[response.body])
 ```
 
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/reports.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -161,6 +183,28 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 puts JSON.pretty_generate(JSON[response.body])
 ```
 
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -250,6 +294,28 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 }
 
 puts JSON.pretty_generate(JSON[response.body])
+```
+
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
 ```
 
 > The above request produces output in this format:
@@ -375,6 +441,28 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 puts JSON.pretty_generate(JSON[response.body])
 ```
 
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -446,6 +534,28 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 }
 
 puts JSON.pretty_generate(JSON[response.body])
+```
+
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
 ```
 
 > The above request produces output in this format:
@@ -779,6 +889,28 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 }
 
 puts JSON.pretty_generate(JSON[response.body])
+```
+
+```php
+<?php
+$curl = curl_init('https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json');
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($curl, CURLOPT_USERPWD, 'AOI6-LFKL-VM1Q-IEX9:footastic');
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_ANY);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);                          
+curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);                           
+curl_setopt($curl, CURLOPT_USERAGENT, 'Wufoo Sample Code');
+
+$response = curl_exec($curl);
+$resultStatus = curl_getinfo($curl);
+
+if($resultStatus['http_code'] == 200) {
+    $json = json_decode($response);
+    echo json_encode($json, JSON_PRETTY_PRINT);
+} else {
+    echo 'Call Failed '.print_r($resultStatus);
+}
+?>
 ```
 
 > The above request produces output in this format:
