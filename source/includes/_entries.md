@@ -6,6 +6,47 @@
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/wufoo-api-example/entries.json?pretty=true&sort=EntryId&sortDirection=DESC"
 ```
 
+```python
+import urllib2
+import json
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/entries.json?sort=EntryId&sortDirection=DESC')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/entries.json?sort=EntryId&sortDirection=DESC")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -229,6 +270,48 @@ Example:
 ```shell
 curl -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json?pretty=true"
 ```
+
+```python
+import urllib2
+import json
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/entries/count.json')
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/entries/count.json")
+
+request = Net::HTTP::Get.new(uri.request_uri)
+request.basic_auth(username, password)
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
+```
+
 > The above request produces output in this format:
 
 ```json
@@ -260,6 +343,64 @@ pretty    | false   | If set to true, returns the result in a "pretty print" for
 ```shell
 curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field105=API-Test" -d "Field106=42" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json"
 ```
+
+```python
+import urllib
+import urllib2
+import json
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+values = {
+        'Field1' : 'Wufoo', 
+        'Field2' : 'Test', 
+        'Field105' : 'API-Test',
+        'Field106' : '42'
+}
+
+post_data = urllib.urlencode(values)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/entries.json', post_data)
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/entries.json")
+
+request = Net::HTTP::Post.new(uri.request_uri)
+request.basic_auth(username, password)
+
+request.set_form_data('Field1' => 'Wufoo',
+                      'Field2' => 'Test',
+                      'Field105' => 'API-Test',
+                      'Field106' => '42'
+                      )
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
+```
+
 > The above request will recieve a response in this format:
 
 ```json
@@ -314,6 +455,61 @@ RedirectUrl | If the form has a [Redirect](http://help.wufoo.com/articles/en_US/
 
 ```shell
 curl -X POST -d "Field1=Wufoo" -d "Field2=Test" -d "Field106=test" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json"
+```
+
+```python
+import urllib
+import urllib2
+import json
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+password_manager.add_password(None, base_url, username, password)
+handler = urllib2.HTTPBasicAuthHandler(password_manager)
+opener = urllib2.build_opener(handler)
+
+urllib2.install_opener(opener)
+
+values = {
+        'Field1' : 'Wufoo', 
+        'Field2' : 'Test',
+        'Field106' : 'Fail'
+}
+
+post_data = urllib.urlencode(values)
+
+response = urllib2.urlopen(base_url+'forms/s1afea8b1vk0jf7/entries.json', post_data)
+data = json.load(response)
+print json.dumps(data, indent=4, sort_keys=True)
+```
+
+```ruby
+require "net/http"
+require "uri"
+require "json"
+
+base_url = 'https://fishbowl.wufoo.com/api/v3/'
+username = 'AOI6-LFKL-VM1Q-IEX9'
+password = 'footastic'
+
+uri = URI.parse(base_url+"forms/s1afea8b1vk0jf7/entries.json")
+
+request = Net::HTTP::Post.new(uri.request_uri)
+request.basic_auth(username, password)
+
+request.set_form_data('Field1' => 'Wufoo',
+                      'Field2' => 'Test',
+                      'Field106' => 'Fail'
+                      )
+
+response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'https') {|http|
+  http.request(request)
+}
+
+puts JSON.pretty_generate(JSON[response.body])
 ```
 
 >Here is the corresponding "failed" PostResponse
