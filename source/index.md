@@ -26,12 +26,58 @@ search: true
 
 # Introduction
 
-Welcome to the Wufoo API! You can use our API to access Wufoo API endpoints, which can get information on forms, fields, entries, and more. You can also submit new entries,
-and even add or remove Webhooks.
+Welcome to the Wufoo API! You can use our API to access your forms, entries, reports, and more. You can also submit new entries, and even add or remove Webhooks. 
 
-There are wrapper libraries for Ruby, PHP, jQuery, Python, and Node, but you can make requests using any HTTP service. You can view basic code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right. All examples use the 'fishbowl' example subdomain. When making your own requests, be sure to use your own account name/subdomain, and your own API Key
+Our v3 API is RESTful, which means you can make requests using any HTTP service. To help you get started with building your own integrations, there are some basic code examples in the area to the right, and you can switch the programming language of the examples with the tabs in the top right. All examples use the 'fishbowl' example subdomain. When making your own requests, be sure to use your own account name/subdomain, and your own API Key.
 
-> To authenticate, Wufoo uses HTTP Basic Auth:
+## Structure
+
+Each resource page will go into more detail, but here's a quick overview of how the Wufoo API is structured
+
+When making a request, you'll use your specific account subdomain. For example: `https://fishbowl.wufoo.com`
+
+All of our API resources then start with: `/api/v3` 
+
+To help keep things organized, we've broken up our API into logical sections based on the different aspects of Wufoo. These are:  
+
+Name     | Endpoint    | HTTP Methods
+-------- | ----------- | -----------
+Forms    | `/forms`    | GET
+Entries  | `/entries`  | GET or POST
+Reports  | `/reports`  | GET
+Users    | `/users`    | GET
+Webhooks | `/webhooks` | PUT or DELETE
+Login    | `/login`    | POST
+
+Some requests require you to identify the specific resource you're trying to access. The most commonly used example would be a form identifier. To uniquely identify a specific form, you can use either 
+the "hashed" URL: `/forms/s1afea8b1vk0jf7/`
+or the form title: `/forms/wufoo-api-example/`
+
+Forms and Reports resources have a  "hashed" and a "title" identifier. Widgets, Users, and WebHooks resources only have hash identifiers.
+
+Finally, each request will end with a format extension. Our API can return responses in either `.json` or `.xml` format.
+
+A complete request will look like this: `https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json`
+
+## Restrictions
+
+We currently restrict API usage to 5000 requests per key, per day. This means that each sub-user on an account can make 5000 requests.
+
+## API Key
+
+To use any of the API functions, you'll need to use your Wufoo API Key. If you haven't already, you can follow these steps to locate your key:
+
+- Log in to your Wufoo account
+- Click the Share button beneath any of your forms 
+- In the Share menu, click the API Information button to access your API credentials. 
+- On that page there is a 16 digit code, which is your unique API key.
+
+<aside class="notice">
+Each sub-user on your account has their own API Key. This allows you to still enforce <a href='http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/User-Management'>User Permissions</a>, even with the API
+</aside>
+
+
+> Here is a sample request, showing the process for authenticating using your API Key:
 
 # Authentication
 
@@ -114,7 +160,7 @@ puts JSON.pretty_generate(JSON[response.body])
 
 Wufoo uses [Basic Auth](http://www.ietf.org/rfc/rfc2617.txt) with API Keys to allow access to the API. 
 
-Wufoo expects for the API key to be included as the 'username' and any value as the 'password' portion of Basic Auth. If the service you're using doesn't have a built in way to authenticate using Basic Auth, you can set the Authorization header to a base64 encoded string:
+Wufoo expects the API key to be included as the 'username' and any value as the 'password' portion of Basic Auth. If the service you're using doesn't have a built in way to authenticate using Basic Auth, you can set the Authorization header to a base64 encoded string:
 
 `base64('username:password')`
 
