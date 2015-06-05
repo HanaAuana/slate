@@ -171,7 +171,7 @@ Url - This is the "easy to remember" URL used for the form. Since it changes whe
 
 Email - A list of the email addresses that are set to receive Notification emails in the Notification Settings
 
-IsPublic - Indicates whether or not the "Public" option is enabled, allowing anyone with the link to access the form Possible values are: 1 = true, 0 = false
+IsPublic - Indicates whether or not the "Public" option is enabled, allowing anyone with the link to access the form. Possible values are: 1 = true, 0 = false
 
 Language - Indicates the language set for this account in the Form Settings
 
@@ -426,8 +426,6 @@ if($resultStatus['http_code'] == 200) {
     },
     
 ```
-
-
 
 This request returns the field structure for a specific form.
 
