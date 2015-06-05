@@ -135,6 +135,8 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
+This request returns details of your account's sub-users, including the API Key for each user.
+
 ### HTTP Request
 
 `GET http://{subdomain}.wufoo.com/api/v3/users.{format}`
@@ -152,30 +154,30 @@ Parameter | Default | Description
 --------- | ------- | -----------
 pretty    | false   | If set to true, returns the result in a "pretty print" format
 
-User properties are as follows:
+Each user will have the following properties:
 
-User: Is the user name. This is the friendly name you chose when creating this user.
+User: This is the name chosen when creating this user.
 
 Email: The email address on file for this user.
 
-Timezone: an offset from UTC.
+Timezone: The offset from UTC used for certain account timestamps.
 
 Company: The company defined when this user was created.
 
-IsAccountOwner: Binary value indicating a yes (1) or (0). If the user is an account owner the Create(Forms/Reports/Themes) and AdminAccess values are ignored, as an AccountOwner has full rights to the account.
+IsAccountOwner: Indicates whether the user is the Account Creator. If the user is AccountCreator, the Create(Forms/Reports/Themes) and AdminAccess values are ignored, as an AccountOwner has full rights to the account. Values can be `1` (yes) or `0` (no)
 
-CreateForms: Binary value indicating whether or not this user may create forms.
+CreateForms: Indicates whether or not this user may create forms. Values can be `1` (yes) or `0` (no)
 
-CreateReports: Binary value indicating whether or not this user may create reports.
+CreateReports: Binary value indicating whether or not this user may create reports. Values can be `1` (yes) or `0` (no)
 
-CreateThemes: Binary value indicating whether or not this user may create themes.
+CreateThemes: Binary value indicating whether or not this user may create themes. Values can be `1` (yes) or `0` (no)
 
-AdminAccess: This is an all-inclusive access right. In other words, if a user has this permission, they may create forms/reports/themes and administer users.
+AdminAccess: This indicates if the user has been designated as an Administrator. If a user has this permission, they may create forms/reports/themes and administer users. Values can be `1` (yes) or `0` (no)
 
-ApiKey: The authentication token permitting the user to make requests against the system.
+ApiKey: The authentication value used to make API requests for this account. Each API Key is restricted by that user's permissions as set in the account's [Users tab](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/User-Management)
 
-Hash: An unchanging value representing the user.
+Hash: An unchanging value representing the user on this account.
 
 ImageUrl: Links to the images used for the user's avatar in Wufoo
 
-HttpsEnabled: No longer needed, since all Wufoo forms now use HTTPS unless you decide to [manually disable](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/URL-Modifications#ssl) it through the link or embed code
+HttpsEnabled: No longer used, since all accounts can use HTTPS. All Wufoo forms now use HTTPS automatically, unless you decide to [manually disable](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/URL-Modifications#ssl) it through the link or embed code
