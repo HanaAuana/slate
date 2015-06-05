@@ -86,6 +86,8 @@ Examples of Slate in the Wild
 * [Whispir.io API](https://whispir.github.io/api)
 * [NASA API](https://data.nasa.gov/developer/external/planetary/)
 * [CardPay API](https://developers.cardpay.com/)
+=======
+>>>>>>> 0c42638204d0ee383e2cda24a51fd67339cdd0b0
 * [IBM Cloudant](https://docs-testb.cloudant.com/content-review/_design/couchapp/index.html)
 * [Bitrix basis components](http://bbc.bitrix.expert/)
 
