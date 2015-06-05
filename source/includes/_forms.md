@@ -854,7 +854,7 @@ LastPage - This represents the last page the user submitted.
 
 CompleteSubmission - Represents either a completed (`1`) or incomplete/partial (`0`) entry.
 
-Status - Indicatesthe payment status. An example is ‘Paid’. More info [here](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment)
+Status - Indicates the payment status. An example is ‘Paid’. More info [here](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment)
 
 PurchaseTotal - The total amount charged for the transaction. This is the final total we send to the payment processor
 
