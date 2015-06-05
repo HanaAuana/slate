@@ -181,7 +181,7 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
-This endpoint retrieves the entries from a specific form. 
+This request returns the entries that have been submitted to a specific form. This is the equivalent of viewing your stored entries in the Entry Manager in Wufoo.
 
 <aside class="notice">To identify the desired form, use the form hash or the form title, just like the Form request. </aside>
 
@@ -207,7 +207,9 @@ pretty    | false   | If set to true, returns the result in a "pretty print" for
 pageStart | 0       | The entry that the request will start from
 pageSize  | 25      | The number of entries returned in the request (Maximum of 100)
 
-<b>Every Entries API call returns five fields with every request. The Default Fields are:</b>
+The various `Field##` properties correspond to the fields in the [Form Fields](/#form-fields)
+
+<b>Every Entry in an Entries request contains five fields. The Default Fields are:</b>
 
 EntryId - This value is the unique identifier for your entry.
 
@@ -219,23 +221,23 @@ DateUpdated - The date that this entry was edited through the Entry Manager. If 
 
 UpdatedBy - The user name of the person who updated the entry in the Entry Manager will appear in this element.
 
-<b id='entries-system'>The System Fields are:</b>
+<b id='entries-system'>If you add the `system` query parameter, some addtional metadata fields will be included. The System Fields are:</b>
 
 IP - The IP Address of the user submitting the form.
 
-Last Page Accessed - If a user did not complete the form, this number represents the last page the user did submit.
+LastPage - This represents the last page the user submitted.
 
-Completion Status - Is a one or zero, representing either completed (1) or incomplete.
+CompleteSubmission - Represents either a completed (`1`) or incomplete/partial (`0`) entry.
 
-Status - Indicates what state your payment is in. An example is ‘Paid’. To see more payment types, check out the payment status documentation
+Status - Indicates the payment status. An example is ‘Paid’. More info [here](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment)
 
-PurchaseTotal - The total purchase, after discounts, etc.
+PurchaseTotal - The total amount charged for the transaction. This is the final total we send to the payment processor
 
-Currency - The type of currency. An example is USD.
+Currency - The currency used. This is the currency value we send to the payment processor
 
-TransactionId - The confirmation number sent back from the merchant gateway.
+TransactionId - The confirmation number sent back from the payment processor.
 
-MerchantType - The merchant name. An example is authnet
+MerchantType - The name of the payment processor used. This is determined by which pyament integration is set up. There is a full list [here](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Payment-Settings)
 
 ### Filtering
 
@@ -251,11 +253,13 @@ Filter{##}  | {##} should just be a unique number to identify each filter (1, 2,
 {Value}     | The value to match with your filter
 {Grouping}  | Allows you group your filters as 'AND' (all must match) or 'OR' (at least one must match)
 
-<aside class="notice">We do not adjust your input fiter date/time, so all dates/times are interpreted as Eastern Standard Time (UTC - 5)</aside>
+<aside class="notice">We do not adjust your input fiter date/time, so all dates/times are interpreted as @todo Eastern Standard Time (UTC - 5)</aside>
 
 Here's an example:
 
 `https://fishbowl.wufoo.com/api/v3/entries/s1afea8b1vk0jf7.json?Filter1=EntryId+Is_after+1&Filter2=EntryId+Is_before+200&match=AND`
+
+<aside class="notice">Multiple filters can be joined, using the `&` operator</aside>
 
 <b>Valid Operators</b>
 
@@ -286,6 +290,21 @@ sortDirection | ASC     | The order to sort returned entries: ASC (lowest to hig
 Example: 
 
 `https://fishbowl.wufoo.com/api/v3/entries/s1afea8b1vk0jf7.json?sort=EntryId&sortDirection=DESC`
+
+### Paging
+
+As mentioned [above](/#form-entries), you can use the `pageStart` and `pageSize` parameters to change the number of entries returned in your request. For example:
+
+`pageStart=5&pageSize=10`
+
+would give you 10 entries, starting after the first 5. In other words, entries 6-15 @todo
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+pageStart | 0       | The entry that the request will start from
+pageSize  | 25      | The number of entries returned in the request (Maximum of 100)
 
 ## Form Entries Count
 
@@ -365,6 +384,8 @@ if($resultStatus['http_code'] == 200) {
 ```
 
 ### HTTP Request
+
+This request returns a count of the entries stored for a specific form. This can help with deciding on a [pageSize](/#paging) for your Entries requests, or determining the number of elements you have to display. This request can also be used with [filters](/filtering), in which case the count will be all entries matching the filter.
 
 `GET http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/entries/count.{format}`
 
@@ -481,7 +502,7 @@ if($resultStatus['http_code'] == 201) {
 }
 ```
 
-This endpoint allows you to submit a new entry to a specific form. 
+This request allows you to submit a new entry to a specific form. 
 
 ### HTTP Request
 
