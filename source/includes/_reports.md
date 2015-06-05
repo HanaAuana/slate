@@ -117,7 +117,7 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
-This endpoint retrieves all reports.
+This request returns details on all the reports you have permission to access. 
 
 ### HTTP Request
 
@@ -135,6 +135,30 @@ format    | Either 'json' or 'xml' is required. This will determine response for
 Parameter          | Default | Description
 ------------------ | ------- | -----------
 pretty             | false   | If set to true, returns the result in a "pretty print" format
+
+Each Report will be displayed as a separate object made up of these properties:
+
+Name - The title of the report specified in the Report Builder
+
+Description - The description of the report as specified in the Report Builder
+
+Url - This is the "easy to remember" URL used for the report. Since it changes when the report title is changed, we recommend using the "hashed" URL instead when you need a permanent link. Can be used as a report identifier in other requests
+
+IsPublic - Indicates whether or not the "Public" option is enabled, allowing anyone with the link to access the report. Possible values are: 1 = true, 0 = false
+
+DateCreated - A timestamp of when the report was created. For a duplicated report, this will be the DateCreated for the original report @todo
+
+DateUpdated - A timestamp of when the report was lasted edited in the Wufoo Report Builder
+
+Hash - A permanent, "hashed" value unique to this report on this user’s account. Can be used as a report identifier in other requests
+
+LinkFields - Link to the Report Fields API for a list of this report's fields
+
+LinkEntries - Link to the Report Entries API for a list of entries stored by this report
+
+LinkEntriesCount - Link to the Report Entries API for a count of the entries stored by this report
+
+LinkWidgets - Link to the Widgets API for the widgets that make up this report
 
 ## Report
 
@@ -227,7 +251,7 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
-This endpoint retrieves a specific report. To identify the desired report, you can either use the report hash or the report title. 
+This request returns a specific report. To identify the desired report, you can either use the report hash or the report title. 
 
 ### HTTP Request
 
@@ -248,6 +272,8 @@ identifier| The title or hash of the report to retrieve
 Parameter          | Default | Description
 ------------------ | ------- | -----------
 pretty             | false   | If set to true, returns the result in a "pretty print" format
+
+The Report properties are the same as in the All Reporst request. The only difference is that this request will only return the identified report.
 
 ## Report Entries
 
@@ -370,7 +396,7 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
-This endpoint retrieves the entries from a specific report. 
+This request returns the entries that make up a specific report. 
 
 ### HTTP Request
 
@@ -391,6 +417,8 @@ Parameter | Default | Description
 --------- | ------- | -----------
 system    | false   | If set to true, includes additional metadata fields
 pretty    | false   | If set to true, returns the result in a "pretty print" format
+
+This is essentially an equivalent of the data that would show up in a datagrid widget on the report, or in an exported copy of the report entry data
 
 <aside class="notice">For more details on entry objects, see <a href='/#form-entries'>Form Entries</a></aside>
 
@@ -470,6 +498,8 @@ if($resultStatus['http_code'] == 200) {
   "EntryCount" : "9"
 }
 ```
+
+This request returns a count of the entries stored for a specific report. This can help with determining the number of elements you have to display. 
 
 ### HTTP Request
 
@@ -825,6 +855,8 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
+This request returns the field structure for the report's corresponding form.
+
 `GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}/fields.{format}`
 
 ### URL Parameters
@@ -943,6 +975,8 @@ if($resultStatus['http_code'] == 200) {
 }
 ```
 
+This request returns details of the widgets that make up a specific report.
+
 ### HTTP Request
 
 `GET http://{subdomain}.wufoo.com/api/v3/reports/{identifier}/widgets.{format}`
@@ -963,16 +997,15 @@ pretty    | false   | If set to true, returns the result in a "pretty print" for
 
 Only Chart, Graph, and Number widgets will be included in the request. Any Text or Datagrid widgets will not be shown. Each widget element will have the following properties:
 
-Name - Is the widget name. This is the friendly name you chose when creating this widget.
+Name - This is the name you chose when creating this widget in the Report Builder.
 
-Size - Graphs (pie, bar, line) have the sizes small, medium and large. Field Charts (fieldChart) have a size of ‘fill’ because they always fill the container they are placed in. Big Numbers (bigNumber) have a size of ‘fixed’ because they are all one size.
+Size - Graphs (pie, bar, line) can be `small`, `medium` or `large`. Charts (fieldChart) will have a size of `fill` because they always fill the container they are placed in. Big Numbers (bigNumber) will also have a size of `fill` because they are all one size.
 
-Type - The identifier for the widget type. Valid Typeof values are fieldChart, bigNumber, bar, line, and pie.
+Type - The identifier for the widget type. Valid `type` values are `fieldChart`, `bigNumber`, `bar`, `line`, and `pie`.
 
-TypeDesc - A user-friendly version of Typeof.
+TypeDesc - A user-friendly version of the Widget type.
 
-Hash - An unchanging value representing this widget.
-
+Hash - An unchanging value representing this specific widget on this specific form.
 
 <h4 id='embed-widget'>The hash code for a widget can be used to embed the widget using Javascript</h4>
 
