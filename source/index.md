@@ -59,10 +59,6 @@ Finally, each request will end with a format extension. Our API can return respo
 
 A complete request will look like this: `https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json`
 
-## Restrictions
-
-We currently restrict API usage to 5000 requests per key, per day. This means that each sub-user on an account can make 5000 requests.
-
 ## API Key
 
 To use any of the API functions, you'll need to use your Wufoo API Key. If you haven't already, you can follow these steps to locate your key:
@@ -76,10 +72,13 @@ To use any of the API functions, you'll need to use your Wufoo API Key. If you h
 Each sub-user on your account has their own API Key. This allows you to still enforce <a href='http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/User-Management'>User Permissions</a>, even with the API
 </aside>
 
+## Restrictions
 
-> Here is a sample request, showing the process for authenticating using your API Key:
+We currently restrict API usage to 5000 requests per key, per day. This means that an account can make 5000 requests per sub-user, per day.
 
 # Authentication
+
+> Here is a sample request, showing the process for authenticating using your API Key:
 
 ```shell
 # With cURL, you can just pass the "username" and "password" with each request
@@ -156,7 +155,7 @@ response = Net::HTTP.start(uri.hostname, uri.port, :use_ssl => uri.scheme == 'ht
 puts JSON.pretty_generate(JSON[response.body])
 ```
 
-> Make sure to replace `AOI6-LFKL-VM1Q-IEX9` with your API key and `fishbowl` with your own subdomain. The second value `footastic` is required, but can be anything
+> Make sure to replace `AOI6-LFKL-VM1Q-IEX9` with your API key and `fishbowl` with your own subdomain. The second value `footastic` can be set to anything (we don't check the content).
 
 Wufoo uses [Basic Auth](http://www.ietf.org/rfc/rfc2617.txt) with API Keys to allow access to the API. 
 
