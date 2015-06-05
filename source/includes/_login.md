@@ -2,7 +2,7 @@
 
 ## Retrieve API Key
 
-> integrationKey and password values have been redacted. In an actual request, substitute your own key and the user's password
+> The integrationKey and password values have been redacted. In an actual request, substitute your own key and the user's password
 
 ```shell
 curl -X POST -d "integrationKey=XXX" -d "email=fishbowl@wufoo.com" -d "password=XXX" -d "subdomain=fishbowl" -u "AOI6-LFKL-VM1Q-IEX9":"footastic" "https://wufoo.com/api/v3/login.json"
@@ -99,6 +99,7 @@ if($resultStatus['http_code'] == 200 || $resultStatus['http_code'] == 201) {
   "Subdomain":"fishbowl"
 }
 ```
+This request allows [approved partners](https://master.wufoo.com/forms/integration-key-application/) to access users API Keys. This is useful for custom integrations that need to make API requests on behalf of Wufoo users. For example, [Zapier](https://zapier.com/zapbook/wufoo/) uses this method to set up new integrations, without requiring users to use or even know their own API Key.
 
 ### HTTP Request
 
@@ -119,3 +120,20 @@ email          | Required. The user’s email, which acts as the identifier for 
 password       | Required. The user's password
 subdomain      | Optional. The user's subdomain. Is required if the email belongs to a sub-user or the email address is used on multiple accounts.
 <aside class="warning">If you submit a request without the subdomain, but there's a conflict, the request will return a 409 error</aside>
+
+A successful response will contain:
+
+ApiKey - This is the user's API Key. You can then use this to make API requests on their behalf.
+
+UserLink - This is a link for the corresponding Users request for this specific user.
+
+Subdomain - The subdomain for the user. You’ll need this to make proper API requests to the user's account.
+
+### Sub-users and Multiple subdomains
+
+If the user you're trying to access is either:
+- A subuser of the account
+- An Account Creator and/or sub-user on multiple accounts
+the subdomain parameter is required. 
+
+If you leave out the subdomain, but one of the above criteria applies, you'll receive a 409 error. To avoid this, we recommend making all requests with the relevant subdomain parameter, even if it's not technically "required."
