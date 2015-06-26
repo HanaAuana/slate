@@ -50,19 +50,19 @@
       <div class="content">
         <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Wufoo API! You can use our API to access your forms, entries, reports, and more. You can also submit new entries, and even add or remove Webhooks. </p>
+<p>Welcome to the Wufoo API! You can use our API to access your forms, entries, reports, and more. You can also submit new entries, and even add or remove Webhooks.</p>
 
 <h2 id="structure">Structure</h2>
 
 <blockquote>
-<p>Our API can be used by making requests with any HTTP service/client/library. To help you get started with building your own integrations, we&rsquo;ll include basic code samples in this area. You can switch the language of the examples with the tabs at the top. </p>
+<p>Our API can be used by making requests with any HTTP service/client/library. To help you get started with building your own integrations, we&rsquo;ll include basic code samples in this area. You can switch the language of the examples with the tabs at the top.</p>
 </blockquote>
 
 <p>Each resource page will go into more detail, but here&rsquo;s a quick overview of how the Wufoo API is structured</p>
 
 <p>When making a request, you&rsquo;ll use your specific account subdomain. For example: <code class="prettyprint">https://fishbowl.wufoo.com</code></p>
 
-<p>All of our API resources then start with: <code class="prettyprint">/api/v3</code> </p>
+<p>All of our API resources then start with: <code class="prettyprint">/api/v3</code></p>
 
 <p>To help keep things organized, we&rsquo;ve broken up our API into logical sections based on the different aspects of Wufoo. These are:  </p>
 
@@ -105,7 +105,7 @@
 </tr>
 </tbody></table>
 
-<p>Some requests require you to identify the specific resource you&rsquo;re trying to access. The most commonly used example would be a form identifier. To uniquely identify a specific form, you can use either 
+<p>Some requests require you to identify the specific resource you&rsquo;re trying to access. The most commonly used example would be a form identifier. To uniquely identify a specific form, you can use either
 the &ldquo;hashed&rdquo; URL: <code class="prettyprint">/forms/s1afea8b1vk0jf7/</code>
 or the form title: <code class="prettyprint">/forms/wufoo-api-example/</code></p>
 
@@ -115,7 +115,7 @@ or the form title: <code class="prettyprint">/forms/wufoo-api-example/</code></p
 
 <p>A complete request will look like this: <code class="prettyprint">https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json</code></p>
 
-<p>Optional query parameters can also be added to the end of the request like so: 
+<p>Optional query parameters can also be added to the end of the request like so:
 <code class="prettyprint">https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json?pretty=true&amp;includeTodayCount=true</code></p>
 
 <h2 id="api-key">API Key</h2>
@@ -128,8 +128,8 @@ or the form title: <code class="prettyprint">/forms/wufoo-api-example/</code></p
 
 <ul>
 <li>Log in to your Wufoo account</li>
-<li>Click the Share button beneath any of your forms </li>
-<li>In the Share menu, click the API Information button to access your API credentials. </li>
+<li>Click the Share button beneath any of your forms</li>
+<li>In the Share menu, click the API Information button to access your API credentials.</li>
 <li>On that page there is a 16 digit code, which is your unique API key.</li>
 </ul>
 
@@ -156,8 +156,8 @@ curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footasti
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_RETURNTRANSFER</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_USERPWD</span><span class="p">,</span> <span class="s1">'AOI6-LFKL-VM1Q-IEX9:footastic'</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_HTTPAUTH</span><span class="p">,</span> <span class="nx">CURLAUTH_ANY</span><span class="p">);</span>
-<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_SSL_VERIFYPEER</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>                          
-<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_FOLLOWLOCATION</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>                           
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_SSL_VERIFYPEER</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+<span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_FOLLOWLOCATION</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
 <span class="nb">curl_setopt</span><span class="p">(</span><span class="nv">$curl</span><span class="p">,</span> <span class="nx">CURLOPT_USERAGENT</span><span class="p">,</span> <span class="s1">'Wufoo Sample Code'</span><span class="p">);</span>
 
 <span class="nv">$response</span> <span class="o">=</span> <span class="nb">curl_exec</span><span class="p">(</span><span class="nv">$curl</span><span class="p">);</span>
@@ -219,7 +219,7 @@ curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footasti
 <p>Make sure to replace <code class="prettyprint">AOI6-LFKL-VM1Q-IEX9</code> with your API key and <code class="prettyprint">fishbowl</code> with your own subdomain. The second value <code class="prettyprint">footastic</code> can be set to anything (we don&rsquo;t check the content).</p>
 </blockquote>
 
-<p>Wufoo uses <a href="http://www.ietf.org/rfc/rfc2617.txt">Basic Auth</a> with API Keys to allow access to the API. </p>
+<p>Wufoo uses <a href="http://www.ietf.org/rfc/rfc2617.txt">Basic Auth</a> with API Keys to allow access to the API.</p>
 
 <p>Wufoo expects the API key to be included as the &#39;username&rsquo; and any value as the &#39;password&rsquo; portion of Basic Auth. If the service you&rsquo;re using doesn&rsquo;t have a built in way to authenticate using Basic Auth, you can set the Authorization header to a base64 encoded string:</p>
 
@@ -236,7 +236,7 @@ You&rsquo;ll need to replace 'username&rsquo; with your API key, and password wi
           <h1 id="forms">Forms</h1>
 
 <h2 id="all-forms">All Forms</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -447,7 +447,7 @@ Remember you&rsquo;ll need to authenticate with your API Key to access this or a
 <p>LinkEntriesCount - Link to the Entries API for a count of the entries stored by this form</p>
 
 <h2 id="form">Form</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -588,7 +588,7 @@ Remember you&rsquo;ll need to authenticate with your API Key to access this or a
 <p>The Form properties are the same as in the All Forms request. The only difference is that this request will only return the identified form.</p>
 
 <h2 id="form-fields">Form Fields</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/fields.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1149,7 +1149,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <p>MerchantType - The name of the payment processor used. This is determined by which pyament integration is set up. There is a full list <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Payment-Settings">here</a></p>
 
 <h2 id="form-comments">Form Comments</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1312,7 +1312,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <p>Text - The comment itself.</p>
 
 <h2 id="comments-count">Comments Count</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1426,7 +1426,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
           <h1 id="entries">Entries</h1>
 
 <h2 id="form-entries">Form Entries</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/wufoo-api-example/entries.json?pretty=true&amp;sort=EntryId&amp;sortDirection=DESC"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/wufoo-api-example/entries.json?sort=EntryId&amp;sortDirection=DESC"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -1817,7 +1817,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </tbody></table>
 
 <h2 id="form-entries-count">Form Entries Count</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries/count.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -2233,7 +2233,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
           <h1 id="reports">Reports</h1>
 
 <h2 id="all-reports">All Reports</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -2405,7 +2405,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <p>LinkWidgets - Link to the Widgets API for the widgets that make up this report</p>
 
 <h2 id="report">Report</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -2535,7 +2535,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <p>The Report properties are the same as in the All Reporst request. The only difference is that this request will only return the identified report.</p>
 
 <h2 id="report-entries">Report Entries</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -2700,7 +2700,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <aside class="notice">For more details on entry objects, see <a href='#form-entries'>Form Entries</a></aside>
 
 <h2 id="report-entries-count">Report Entries Count</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/entries/count.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -2812,7 +2812,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </tbody></table>
 
 <h2 id="report-fields">Report Fields</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/fields.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -3188,7 +3188,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <aside class="notice">Report fields are the field for the form the report is based on. For more, see <a href='#form-fields'>Form Fields</a></aside>
 
 <h2 id="widgets">Widgets</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7/widgets.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
@@ -3351,7 +3351,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
           <h1 id="users">Users</h1>
 
 <h2 id="users">Users</h2>
-<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/users.json?pretty=true"</span>
+<pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/users.json"</span>
 </code></pre>
 <pre class="highlight python"><code><span class="kn">import</span> <span class="nn">urllib2</span>
 <span class="kn">import</span> <span class="nn">json</span>
