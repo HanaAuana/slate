@@ -43,7 +43,6 @@
       </div>
         <ul class="toc-footer">
             <li><a href='http://www.wufoo.com'>Wufoo</a></li>
-            <li><a href='http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Wufoo-REST-API-V3'>Our other API docs</a></li>
             <li><a href='http://github.com/tripit/slate'>Powered by Slate</a></li>
         </ul>
     </div>
@@ -128,12 +127,21 @@ or the form title: <code class="prettyprint">/forms/wufoo-api-example/</code></p
 
 <p>To use any of the API functions, you&rsquo;ll need to use your Wufoo API Key. If you haven&rsquo;t already, you can follow these steps to locate your key:</p>
 
-<ul>
+<ol>
 <li>Log in to your Wufoo account</li>
-<li>Click the Share button beneath any of your forms</li>
-<li>In the Share menu, click the API Information button to access your API credentials.</li>
-<li>On that page there is a 16 digit code, which is your unique API key.</li>
-</ul>
+<li>From the Form Manager, select <strong>API Information</strong> from the <strong>More</strong> dropdown on any form. </li>
+<li>On that page there is a 16 digit code, which is your unique API key. </li>
+</ol>
+
+<h2 id="form-hashes-and-field-ids">Form Hashes and Field Ids</h2>
+
+<p>Many API calls also involve using a Form&rsquo;s hash or the API ID for a form&rsquo;s field. To locate this information:</p>
+
+<ol>
+<li>Log in to your Wufoo account</li>
+<li>From the Form Manager, select <strong>API Information</strong> from the <strong>More</strong> dropdown on the form you want to make calls against.</li>
+<li>In the table below your API Key you will find an API ID for each field and your form&rsquo;s Hash. </li>
+</ol>
 
 <aside class="notice">
 Each sub-user on your account has their own API Key. This allows you to still enforce <a href='http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/User-Management'>User Permissions</a>, even with the API
@@ -390,7 +398,7 @@ You&rsquo;ll need to replace 'username&rsquo; with your API key, and password wi
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request returns details on all the forms you have permission to access. </p>
+<p>This request returns details on all the forms you have permission to access.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -445,37 +453,77 @@ Remember you&rsquo;ll need to authenticate with your API Key to access this or a
 
 <p>Each Form will be displayed as a separate object made up of these properties:</p>
 
-<p>Name - The title of the form specified in the Form Settings</p>
-
-<p>Description - The description of the form as specified in the Form Settings</p>
-
-<p>Redirect Message - The Confirmation message shown to users after they submit an entry</p>
-
-<p>Url - This is the &ldquo;easy to remember&rdquo; URL used for the form. Since it changes when the form title is changed, we recommend using the &ldquo;hashed&rdquo; URL instead when you need a permanent link. Can be used as a form identifier in other requests</p>
-
-<p>Email - A list of the email addresses that are set to receive Notification emails in the Notification Settings</p>
-
-<p>IsPublic - Indicates whether or not the &ldquo;Public&rdquo; option is enabled, allowing anyone with the link to access the form. Possible values are: 1 = true, 0 = false</p>
-
-<p>Language - Indicates the language set for this account in the Form Settings</p>
-
-<p>StartDate - The date/time the form will be accessible through the public URL</p>
-
-<p>EndDate - The date/time the form will no longer be accessible through the public URL</p>
-
-<p>EntryLimit - The maximum number of entries this form will accept before it is no longer accessible through the public URL</p>
-
-<p>DateCreated - A timestamp of when the form was created. For a duplicated form, this will be the DateCreated for the original form</p>
-
-<p>DateUpdated - A timestamp of when the form was lasted edited in the Wufoo Form Builder. For duplicated forms, the original value will also be copied from the original form</p>
-
-<p>Hash - A permanent, &ldquo;hashed&rdquo; value unique to this form on this user’s account. Can be used as a form identifier in other requests</p>
-
-<p>LinkFields - Link to the Fields API for a list of this form&rsquo;s fields</p>
-
-<p>LinkEntries - Link to the Entries API for a list of entries stored by this form</p>
-
-<p>LinkEntriesCount - Link to the Entries API for a count of the entries stored by this form</p>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Name</td>
+<td>The title of the form specified in the Form Settings</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>The description of the form as specified in the Form Settings</td>
+</tr>
+<tr>
+<td>Redirect Message</td>
+<td>The Confirmation message shown to users after they submit an entry</td>
+</tr>
+<tr>
+<td>Url</td>
+<td>This is the &ldquo;easy to remember&rdquo; URL used for the form. Since it changes when the form title is changed, we recommend using the &ldquo;hashed&rdquo; URL instead when you need a permanent link. Can be used as a form identifier in other requests</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>A list of the email addresses that are set to receive Notification emails in the Notification Settings</td>
+</tr>
+<tr>
+<td>IsPublic</td>
+<td>Indicates whether or not the &ldquo;Public&rdquo; option is enabled, allowing anyone with the link to access the form. Possible values are: 1 = true, 0 = false</td>
+</tr>
+<tr>
+<td>Language</td>
+<td>Indicates the language set for this account in the Form Settings</td>
+</tr>
+<tr>
+<td>StartDate</td>
+<td>The date/time the form will be accessible through the public URL</td>
+</tr>
+<tr>
+<td>EndDate</td>
+<td>The date/time the form will no longer be accessible through the public URL</td>
+</tr>
+<tr>
+<td>EntryLimit</td>
+<td>The maximum number of entries this form will accept before it is no longer accessible through the public URL</td>
+</tr>
+<tr>
+<td>DateCreated</td>
+<td>A timestamp of when the form was created. For a duplicated form, this will be the DateCreated for the original form</td>
+</tr>
+<tr>
+<td>DateUpdated</td>
+<td>A timestamp of when the form was lasted edited in the Wufoo Form Builder. For duplicated forms, the original value will also be copied from the original form</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>A permanent, &ldquo;hashed&rdquo; value unique to this form on this user’s account. Can be used as a form identifier in other requests</td>
+</tr>
+<tr>
+<td>LinkFields</td>
+<td>Link to the Fields API for a list of this form&rsquo;s fields</td>
+</tr>
+<tr>
+<td>LinkEntries</td>
+<td>Link to the Entries API for a list of entries stored by this form</td>
+</tr>
+<tr>
+<td>LinkEntriesCount</td>
+<td>Link to the Entries API for a count of the entries stored by this form</td>
+</tr>
+</tbody></table>
 
 <h2 id="form">Form</h2>
 <pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7.json"</span>
@@ -580,7 +628,7 @@ Remember you&rsquo;ll need to authenticate with your API Key to access this or a
 
 </span></code></pre>
 
-<p>This request returns a specific form. To identify the desired form, you can either use the form hash or the form title. </p>
+<p>This request returns a specific form. To identify the desired form, you can either use the form hash or the form title.</p>
 
 <aside class="notice">You can find the form identifier in either the Easy to Remember or the Permanent form URLs. Making a request for all Forms will also allow you to locate the form identifiers</aside>
 
@@ -802,23 +850,36 @@ Remember you&rsquo;ll need to authenticate with your API Key to access this or a
 </tr>
 </tbody></table>
 
-<p><b>Most of the properties for a Field object match the options set in your Field Settings. Here a few:</b></p>
+<p><b>Most of the properties for a Field object match the options set in your Field Settings. Here are a few:</b></p>
 
-<p>Title - The Field Label.</p>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Title</td>
+<td>The Field Label.</td>
+</tr>
+<tr>
+<td>Instructions</td>
+<td>The Instructions for User (if any).</td>
+</tr>
+<tr>
+<td>IsRequired</td>
+<td>Whether or not the field has been marked as Required in the Field Settings. This value can be 1 = true or 0 = false</td>
+</tr>
+<tr>
+<td>ClassNames</td>
+<td>Any values that were added to the CSS Keywords option in the Form Builder.</td>
+</tr>
+</tbody></table>
 
-<p>Instructions - The Instructions for User (if any).</p>
-
-<p>IsRequired - Whether or not the field has been marked as Required in the Field Settings. This value can be 1 = true or 0 = false</p>
-
-<p>ClassNames - Any values that were added to the CSS Keywords option in the Form Builder.</p>
-
-<p>ID - The API ID for that field. This is what you&rsquo;ll use for <a href="#submit-entry">submitting new entries</a>, or using URL Modification and Templating</p>
-
-<p>Label - If a field has a SubFields or Choices property (meaning there are multiple fields or options), each sub-field or choice will have its own label. This is the value stored for Dropdown, Multiple Choice, or Checkbox fields. For fields like Name and Address, these are the values of the different sub-fields </p>
-
-<p>DefaultVal - If the field has a Predefined Value set in the Field Settings, it will be displayed here. Otherwise, the value will be &ldquo;0&rdquo;</p>
-
-<p>Page - Indicates which page of the form the field is added to. On a single page form (no Page Breaks) all fields will be on Page 1</p>
+<p>ID** - The API ID for that field. This is what you&rsquo;ll use for <a href="#submit-entry">submitting new entries</a>, or using URL Modification and Templating
+Label | If a field has a SubFields or Choices property (meaning there are multiple fields or options), each sub-field or choice will have its own label. This is the value stored for Dropdown, Multiple Choice, or Checkbox fields. For fields like Name and Address, these are the values of the different sub-fields
+DefaultVal | If the field has a Predefined Value set in the Field Settings, it will be displayed here. Otherwise, the value will be &ldquo;0&rdquo;
+Page | Indicates which page of the form the field is added to. On a single page form (no Page Breaks) all fields will be on Page 1</p>
 
 <aside class="warning">Fields that are marked as &ldquo;Admin Only&rdquo; are not returned via the API. &ldquo;Hidden&rdquo; and encrypted fields will be shown</aside>
 
@@ -1189,25 +1250,35 @@ Remember you&rsquo;ll need to authenticate with your API Key to access this or a
 </span></code></pre>
 
 <p>These are only included if you set the <code class="prettyprint">system</code> query parameter.
-If you set <code class="prettyprint">system</code> to any value (<code class="prettyprint">system=true</code>, <code class="prettyprint">system=false</code>, etc), the fields will be included, so if you don&rsquo;t want the System Fields, leave the <code class="prettyprint">system</code> paramter out (Don&rsquo;t just set it to <code class="prettyprint">false</code>). This parameter is also available in the <a href="#entries-system">Entries API</a></p>
+If you set <code class="prettyprint">system</code> to any value (<code class="prettyprint">system=true</code>, <code class="prettyprint">system=false</code>, etc), the fields will be included, so if you don&rsquo;t want the System Fields, leave the <code class="prettyprint">system</code> parameter out (Don&rsquo;t just set it to <code class="prettyprint">false</code>). This parameter is also available in the <a href="#entries-system">Entries API</a></p>
 
 <p><b>The System Fields are:</b></p>
 
-<p>IP - The IP Address of the user submitting the form.</p>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>IP</td>
+<td>The IP Address of the user submitting the form.</td>
+</tr>
+<tr>
+<td>LastPage</td>
+<td>This represents the last page the user submitted.</td>
+</tr>
+<tr>
+<td>CompleteSubmission</td>
+<td>Represents either a completed (<code class="prettyprint">1</code>) or incomplete/partial (<code class="prettyprint">0</code>) entry.</td>
+</tr>
+</tbody></table>
 
-<p>LastPage - This represents the last page the user submitted.</p>
-
-<p>CompleteSubmission - Represents either a completed (<code class="prettyprint">1</code>) or incomplete/partial (<code class="prettyprint">0</code>) entry.</p>
-
-<p>Status - Indicates the payment status. An example is ‘Paid’. More info <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment">here</a></p>
-
-<p>PurchaseTotal - The total amount charged for the transaction. This is the final total we send to the payment processor</p>
-
-<p>Currency - The currency used. This is the currency value we send to the payment processor</p>
-
-<p>TransactionId - The confirmation number sent back from the payment processor.</p>
-
-<p>MerchantType - The name of the payment processor used. This is determined by which pyament integration is set up. There is a full list <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Payment-Settings">here</a></p>
+<p>Status** - Indicates the payment status. An example is ‘Paid’. More info <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment">here</a>
+PurchaseTotal | The total amount charged for the transaction. This is the final total we send to the payment processor
+Currency | The currency used. This is the currency value we send to the payment processor
+TransactionId | The confirmation number sent back from the payment processor.
+MerchantType | The name of the payment processor used. This is determined by which payment integration is set up. There is a full list <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Payment-Settings">here</a></p>
 
 <h2 id="form-comments">Form Comments</h2>
 <pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments.json"</span>
@@ -1377,15 +1448,33 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p><b>Here are the properties of each Comment:</b></p>
 
-<p>CommentId - A unique ID for this comment.</p>
-
-<p>CommentedBy - The name of the person who commented on this entry.</p>
-
-<p>DateCreated - The date on which the comment was made.</p>
-
-<p>EntryId - Is the unique ID of the entry to which this comment is associated.</p>
-
-<p>Text - The comment itself.</p>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>CommentId</td>
+<td>A unique ID for this comment.</td>
+</tr>
+<tr>
+<td>CommentedBy</td>
+<td>The name of the person who commented on this entry.</td>
+</tr>
+<tr>
+<td>DateCreated</td>
+<td>The date on which the comment was made.</td>
+</tr>
+<tr>
+<td>EntryId</td>
+<td>Is the unique ID of the entry to which this comment is associated.</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>The comment itself.</td>
+</tr>
+</tbody></table>
 
 <h2 id="comments-count">Comments Count</h2>
 <pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/comments/count.json"</span>
@@ -1470,7 +1559,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request returns a count of all comments made on this form&rsquo;s entries </p>
+<p>This request returns a count of all comments made on this form&rsquo;s entries</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -1770,33 +1859,75 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p><b>Every Entry in an Entries request contains five fields. The Default Fields are:</b></p>
 
-<p>EntryId - This value is the unique identifier for your entry.</p>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>EntryId</td>
+<td>This value is the unique identifier for your entry.</td>
+</tr>
+<tr>
+<td>DateCreated</td>
+<td>The date that this entry was submitted. The date/time will be recorded in the timezone of the user making the request</td>
+</tr>
+<tr>
+<td>Created By</td>
+<td>The person who created the entry. If submitted through a form, the value here will be public. If the submission originated in the Entry Manager this value will be the user name of the submitting user.</td>
+</tr>
+<tr>
+<td>DateUpdated</td>
+<td>The date that this entry was edited through the Entry Manager. If the submission has never been updated, this value will be blank.</td>
+</tr>
+<tr>
+<td>UpdatedBy</td>
+<td>The user name of the person who updated the entry in the Entry Manager will appear in this element.</td>
+</tr>
+</tbody></table>
 
-<p>DateCreated - The date that this entry was submitted. The date/time will be recorded in the timezone of the user making the request</p>
+<p><b id='entries-system'>If you add the <code class="prettyprint">system</code> query parameter, some additional metadata fields will be included. The System Fields are:</b></p>
 
-<p>Created By - The person who created the entry. If submitted through a form, the value here will be public. If the submission originated in the Entry Manager this value will be the user name of the submitting user.</p>
-
-<p>DateUpdated - The date that this entry was edited through the Entry Manager. If the submission has never been updated, this value will be blank.</p>
-
-<p>UpdatedBy - The user name of the person who updated the entry in the Entry Manager will appear in this element.</p>
-
-<p><b id='entries-system'>If you add the <code class="prettyprint">system</code> query parameter, some addtional metadata fields will be included. The System Fields are:</b></p>
-
-<p>IP - The IP Address of the user submitting the form.</p>
-
-<p>LastPage - This represents the last page the user submitted.</p>
-
-<p>CompleteSubmission - Represents either a completed (<code class="prettyprint">1</code>) or incomplete/partial (<code class="prettyprint">0</code>) entry.</p>
-
-<p>Status - Indicates the payment status. An example is ‘Paid’. More info <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment">here</a></p>
-
-<p>PurchaseTotal - The total amount charged for the transaction. This is the final total we send to the payment processor</p>
-
-<p>Currency - The currency used. This is the currency value we send to the payment processor</p>
-
-<p>TransactionId - The confirmation number sent back from the payment processor.</p>
-
-<p>MerchantType - The name of the payment processor used. This is determined by which pyament integration is set up. There is a full list <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Payment-Settings">here</a></p>
+<table><thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>IP</td>
+<td>The IP Address of the user submitting the form.</td>
+</tr>
+<tr>
+<td>LastPage</td>
+<td>This represents the last page the user submitted.</td>
+</tr>
+<tr>
+<td>CompleteSubmission</td>
+<td>Represents either a completed (<code class="prettyprint">1</code>) or incomplete/partial (<code class="prettyprint">0</code>) entry.</td>
+</tr>
+<tr>
+<td>Status</td>
+<td>Indicates the payment status. An example is ‘Paid’. More info <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Entry-Manager#payment">here</a></td>
+</tr>
+<tr>
+<td>PurchaseTotal</td>
+<td>The total amount charged for the transaction. This is the final total we send to the payment processor</td>
+</tr>
+<tr>
+<td>Currency</td>
+<td>The currency used. This is the currency value we send to the payment processor</td>
+</tr>
+<tr>
+<td>TransactionId</td>
+<td>The confirmation number sent back from the payment processor.</td>
+</tr>
+<tr>
+<td>MerchantType</td>
+<td>The name of the payment processor used. This is determined by which payment integration is set up. There is a full list <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Payment-Settings">here</a></td>
+</tr>
+</tbody></table>
 
 <h3 id="filtering">Filtering</h3>
 
@@ -1832,7 +1963,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </tr>
 </tbody></table>
 
-<aside class="notice">We do not adjust your input fiter date/time, so all dates/times are interpreted as PST/PDT (UTC -8/-7)</aside>
+<aside class="notice">We do not adjust your input filter date/time, so all dates/times are interpreted as PST/PDT (UTC -8/-7)</aside>
 
 <p>Here&rsquo;s an example:</p>
 
@@ -1889,7 +2020,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p>The <code class="prettyprint">sortDirection</code> parameter will only be applied if it is also used with a <code class="prettyprint">sort</code> parameter. In other words, the <code class="prettyprint">sortDirection</code> can only be applied to the sorting used with the <code class="prettyprint">sort</code> value, not by itself.</p>
 
-<p>Example: </p>
+<p>Example:</p>
 
 <p><code class="prettyprint">https://fishbowl.wufoo.com/api/v3/forms/s1afea8b1vk0jf7/entries.json?sort=EntryId&amp;sortDirection=DESC</code></p>
 
@@ -2068,8 +2199,8 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <span class="n">urllib2</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span>
 
 <span class="n">values</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">'Field1'</span> <span class="p">:</span> <span class="s">'Wufoo'</span><span class="p">,</span> 
-        <span class="s">'Field2'</span> <span class="p">:</span> <span class="s">'Test'</span><span class="p">,</span> 
+        <span class="s">'Field1'</span> <span class="p">:</span> <span class="s">'Wufoo'</span><span class="p">,</span>
+        <span class="s">'Field2'</span> <span class="p">:</span> <span class="s">'Test'</span><span class="p">,</span>
         <span class="s">'Field105'</span> <span class="p">:</span> <span class="s">'API-Test'</span><span class="p">,</span>
         <span class="s">'Field106'</span> <span class="p">:</span> <span class="s">'42'</span>
 <span class="p">}</span>
@@ -2116,8 +2247,8 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
         <span class="s1">'sendImmediately'</span><span class="p">:</span> <span class="kc">false</span>
     <span class="p">},</span>
     <span class="na">form</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">'Field1'</span> <span class="p">:</span> <span class="s1">'Wufoo'</span><span class="p">,</span> 
-        <span class="s1">'Field2'</span> <span class="p">:</span> <span class="s1">'Test'</span><span class="p">,</span> 
+        <span class="s1">'Field1'</span> <span class="p">:</span> <span class="s1">'Wufoo'</span><span class="p">,</span>
+        <span class="s1">'Field2'</span> <span class="p">:</span> <span class="s1">'Test'</span><span class="p">,</span>
         <span class="s1">'Field105'</span> <span class="p">:</span> <span class="s1">'API-Test'</span><span class="p">,</span>
         <span class="s1">'Field106'</span> <span class="p">:</span> <span class="s1">'42'</span>
     <span class="p">}</span>
@@ -2149,7 +2280,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </code></pre>
 
 <blockquote>
-<p>The above request will recieve a response in this format:</p>
+<p>The above request will receive a response in this format:</p>
 </blockquote>
 <pre class="highlight json"><code><span class="p">{</span><span class="w">
   </span><span class="s2">"Success"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
@@ -2159,7 +2290,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request allows you to submit a new entry to a specific form. </p>
+<p>This request allows you to submit a new entry to a specific form.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -2196,8 +2327,8 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <p>Here&rsquo;s an example of what the key/value pairs might look like:</p>
 
 <p><code class="prettyprint">{
-    &quot;Field1&quot;:   &quot;Wufoo&quot;, 
-    &quot;Field2&quot;:   &quot;Test&quot;, 
+    &quot;Field1&quot;:   &quot;Wufoo&quot;,
+    &quot;Field2&quot;:   &quot;Test&quot;,
     &quot;Field105&quot;: &quot;API-Test&quot;,
     &quot;Field106&quot;: &quot;42&quot;
  }</code></p>
@@ -2253,7 +2384,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <span class="n">urllib2</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span>
 
 <span class="n">values</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s">'Field1'</span> <span class="p">:</span> <span class="s">'Wufoo'</span><span class="p">,</span> 
+        <span class="s">'Field1'</span> <span class="p">:</span> <span class="s">'Wufoo'</span><span class="p">,</span>
         <span class="s">'Field2'</span> <span class="p">:</span> <span class="s">'Test'</span><span class="p">,</span>
         <span class="s">'Field106'</span> <span class="p">:</span> <span class="s">'Fail'</span>
 <span class="p">}</span>
@@ -2299,7 +2430,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
         <span class="s1">'sendImmediately'</span><span class="p">:</span> <span class="kc">false</span>
     <span class="p">},</span>
     <span class="na">form</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">'Field1'</span> <span class="p">:</span> <span class="s1">'Wufoo'</span><span class="p">,</span> 
+        <span class="s1">'Field1'</span> <span class="p">:</span> <span class="s1">'Wufoo'</span><span class="p">,</span>
         <span class="s1">'Field2'</span> <span class="p">:</span> <span class="s1">'Test'</span><span class="p">,</span>
         <span class="s1">'Field106'</span> <span class="p">:</span> <span class="s1">'Fail'</span>
 <span class="p">}</span>
@@ -2515,7 +2646,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request returns details on all the reports you have permission to access. </p>
+<p>This request returns details on all the reports you have permission to access.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -2557,27 +2688,57 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p>Each Report will be displayed as a separate object made up of these properties:</p>
 
-<p>Name - The title of the report specified in the Report Builder</p>
-
-<p>Description - The description of the report as specified in the Report Builder</p>
-
-<p>Url - This is the &ldquo;easy to remember&rdquo; URL used for the report. Since it changes when the report title is changed, we recommend using the &ldquo;hashed&rdquo; URL instead when you need a permanent link. Can be used as a report identifier in other requests</p>
-
-<p>IsPublic - Indicates whether or not the &ldquo;Public&rdquo; option is enabled, allowing anyone with the link to access the report. Possible values are: 1 = true, 0 = false</p>
-
-<p>DateCreated - A timestamp of when the report was created. For a duplicated report, this will be the DateCreated for the original report</p>
-
-<p>DateUpdated - A timestamp of when the report was lasted edited in the Wufoo Report Builder</p>
-
-<p>Hash - A permanent, &ldquo;hashed&rdquo; value unique to this report on this user’s account. Can be used as a report identifier in other requests</p>
-
-<p>LinkFields - Link to the Report Fields API for a list of this report&rsquo;s fields</p>
-
-<p>LinkEntries - Link to the Report Entries API for a list of entries stored by this report</p>
-
-<p>LinkEntriesCount - Link to the Report Entries API for a count of the entries stored by this report</p>
-
-<p>LinkWidgets - Link to the Widgets API for the widgets that make up this report</p>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Name</td>
+<td>The title of the report specified in the Report Builder</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>The description of the report as specified in the Report Builder</td>
+</tr>
+<tr>
+<td>Url</td>
+<td>This is the &ldquo;easy to remember&rdquo; URL used for the report. Since it changes when the report title is changed, we recommend using the &ldquo;hashed&rdquo; URL instead when you need a permanent link. Can be used as a report identifier in other requests</td>
+</tr>
+<tr>
+<td>IsPublic</td>
+<td>Indicates whether or not the &ldquo;Public&rdquo; option is enabled, allowing anyone with the link to access the report. Possible values are: 1 = true, 0 = false</td>
+</tr>
+<tr>
+<td>DateCreated</td>
+<td>A timestamp of when the report was created. For a duplicated report, this will be the DateCreated for the original report</td>
+</tr>
+<tr>
+<td>DateUpdated</td>
+<td>A timestamp of when the report was lasted edited in the Wufoo Report Builder</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>A permanent, &ldquo;hashed&rdquo; value unique to this report on this user’s account. Can be used as a report identifier in other requests</td>
+</tr>
+<tr>
+<td>LinkFields</td>
+<td>Link to the Report Fields API for a list of this report&rsquo;s fields</td>
+</tr>
+<tr>
+<td>LinkEntries</td>
+<td>Link to the Report Entries API for a list of entries stored by this report</td>
+</tr>
+<tr>
+<td>LinkEntriesCount</td>
+<td>Link to the Report Entries API for a count of the entries stored by this report</td>
+</tr>
+<tr>
+<td>LinkWidgets</td>
+<td>Link to the Widgets API for the widgets that make up this report</td>
+</tr>
+</tbody></table>
 
 <h2 id="report">Report</h2>
 <pre class="highlight shell"><code>curl -u <span class="s2">"AOI6-LFKL-VM1Q-IEX9"</span>:<span class="s2">"footastic"</span> <span class="s2">"https://fishbowl.wufoo.com/api/v3/reports/qa4d98l1ib9or7.json"</span>
@@ -2675,7 +2836,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request returns a specific report. To identify the desired report, you can either use the report hash or the report title. </p>
+<p>This request returns a specific report. To identify the desired report, you can either use the report hash or the report title.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -2849,7 +3010,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request returns the entries that make up a specific report. </p>
+<p>This request returns the entries that make up a specific report.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -2984,7 +3145,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 
-<p>This request returns a count of the entries stored for a specific report. This can help with determining the number of elements you have to display. </p>
+<p>This request returns a count of the entries stored for a specific report. This can help with determining the number of elements you have to display.</p>
 
 <h3 id="http-request">HTTP Request</h3>
 
@@ -3568,15 +3729,33 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p>Only Chart, Graph, and Number widgets will be included in the request. Any Text or Datagrid widgets will not be shown. Each widget element will have the following properties:</p>
 
-<p>Name - This is the name you chose when creating this widget in the Report Builder.</p>
-
-<p>Size - Graphs (pie, bar, line) can be <code class="prettyprint">small</code>, <code class="prettyprint">medium</code> or <code class="prettyprint">large</code>. Charts (fieldChart) will have a size of <code class="prettyprint">fill</code> because they always fill the container they are placed in. Big Numbers (bigNumber) will also have a size of <code class="prettyprint">fill</code> because they are all one size.</p>
-
-<p>Type - The identifier for the widget type. Valid <code class="prettyprint">type</code> values are <code class="prettyprint">fieldChart</code>, <code class="prettyprint">bigNumber</code>, <code class="prettyprint">bar</code>, <code class="prettyprint">line</code>, and <code class="prettyprint">pie</code>.</p>
-
-<p>TypeDesc - A user-friendly version of the Widget type.</p>
-
-<p>Hash - An unchanging value representing this specific widget on this specific form.</p>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Name</td>
+<td>This is the name you chose when creating this widget in the Report Builder.</td>
+</tr>
+<tr>
+<td>Size</td>
+<td>Graphs (pie, bar, line) can be <code class="prettyprint">small</code>, <code class="prettyprint">medium</code> or <code class="prettyprint">large</code>. Charts (fieldChart) will have a size of <code class="prettyprint">fill</code> because they always fill the container they are placed in. Big Numbers (bigNumber) will also have a size of <code class="prettyprint">fill</code> because they are all one size.</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>The identifier for the widget type. Valid <code class="prettyprint">type</code> values are <code class="prettyprint">fieldChart</code>, <code class="prettyprint">bigNumber</code>, <code class="prettyprint">bar</code>, <code class="prettyprint">line</code>, and <code class="prettyprint">pie</code>.</td>
+</tr>
+<tr>
+<td>TypeDesc</td>
+<td>A user-friendly version of the Widget type.</td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>An unchanging value representing this specific widget on this specific form.</td>
+</tr>
+</tbody></table>
 
 <h4 id='embed-widget'>The hash code for a widget can be used to embed the widget using Javascript</h4>
 
@@ -3777,35 +3956,71 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p>Each user will have the following properties:</p>
 
-<p>User: This is the name chosen when creating this user.</p>
-
-<p>Email: The email address on file for this user.</p>
-
-<p>Timezone: The offset from UTC used for certain account timestamps.</p>
-
-<p>Company: The company defined when this user was created.</p>
-
-<p>IsAccountOwner: Indicates whether the user is the Account Creator. If the user is AccountCreator, the Create(Forms/Reports/Themes) and AdminAccess values are ignored, as an AccountOwner has full rights to the account. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</p>
-
-<p>CreateForms: Indicates whether or not this user may create forms. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</p>
-
-<p>CreateReports: Binary value indicating whether or not this user may create reports. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</p>
-
-<p>CreateThemes: Binary value indicating whether or not this user may create themes. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</p>
-
-<p>AdminAccess: This indicates if the user has been designated as an Administrator. If a user has this permission, they may create forms/reports/themes and administer users. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</p>
-
-<p>ApiKey: The authentication value used to make API requests for this account. Each API Key is restricted by that user&rsquo;s permissions as set in the account&rsquo;s <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/User-Management">Users tab</a></p>
-
-<p>Hash: An unchanging value representing the user on this account.</p>
-
-<p>ImageUrl: Links to the images used for the user&rsquo;s avatar in Wufoo</p>
-
-<p>HttpsEnabled: No longer used, since all accounts can use HTTPS. All Wufoo forms now use HTTPS automatically, unless you decide to <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/URL-Modifications#ssl">manually disable</a> it through the link or embed code</p>
+<table><thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>User</td>
+<td>This is the name chosen when creating this user.</td>
+</tr>
+<tr>
+<td>Email</td>
+<td>The email address on file for this user.</td>
+</tr>
+<tr>
+<td>Timezone</td>
+<td>The offset from UTC used for certain account timestamps.</td>
+</tr>
+<tr>
+<td>Company</td>
+<td>The company defined when this user was created.</td>
+</tr>
+<tr>
+<td>IsAccountOwner</td>
+<td>Indicates whether the user is the Account Creator. If the user is AccountCreator, the Create(Forms/Reports/Themes) and AdminAccess values are ignored, as an AccountOwner has full rights to the account. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</td>
+</tr>
+<tr>
+<td>CreateForms</td>
+<td>Indicates whether or not this user may create forms. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</td>
+</tr>
+<tr>
+<td>CreateReports</td>
+<td>Binary value indicating whether or not this user may create reports. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</td>
+</tr>
+<tr>
+<td>CreateThemes</td>
+<td>Binary value indicating whether or not this user may create themes. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</td>
+</tr>
+<tr>
+<td>AdminAccess</td>
+<td>This indicates if the user has been designated as an Administrator. If a user has this permission, they may create forms/reports/themes and administer users. Values can be <code class="prettyprint">1</code> (yes) or <code class="prettyprint">0</code> (no)</td>
+</tr>
+<tr>
+<td>ApiKey</td>
+<td>The authentication value used to make API requests for this account. Each API Key is restricted by that user&rsquo;s permissions as set in the account&rsquo;s <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/User-Management">Users tab</a></td>
+</tr>
+<tr>
+<td>Hash</td>
+<td>An unchanging value representing the user on this account.</td>
+</tr>
+<tr>
+<td>ImageUrl</td>
+<td>Links to the images used for the user&rsquo;s avatar in Wufoo</td>
+</tr>
+<tr>
+<td>HttpsEnabled</td>
+<td>No longer used, since all accounts can use HTTPS. All Wufoo forms now use HTTPS automatically, unless you decide to <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/URL-Modifications#ssl">manually disable</a> it through the link or embed code</td>
+</tr>
+</tbody></table>
 
           <h1 id="webhooks">Webhooks</h1>
 
 <p>The Webhooks API allows you to add/delete Webhooks on your form, without requiring any manual setup. For example, Zapier uses this to <a href="https://zapier.com/help/wufoo/#using-the-quotnew-entry-webhookquot-trigger">set up a &ldquo;Zap&rdquo;</a> in your forms, without you needing to make any changes.</p>
+
+<aside>Learn how to set your form to send metadata about entries to your webhook <a href="http://help.wufoo.com/articles/en_US/kb/Wufoo-REST-API-V3#webhooks">here</a>.</aside>
 
 <p>Reducing the number of steps your user takes to connect your integration to Wufoo can help to increase conversion and decreases user frustration.</p>
 
@@ -3828,7 +4043,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <span class="n">urllib2</span><span class="o">.</span><span class="n">install_opener</span><span class="p">(</span><span class="n">opener</span><span class="p">)</span>
 
 <span class="n">values</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s">'url'</span> <span class="p">:</span> <span class="s">'https://www.wufoo.com'</span><span class="p">,</span> 
+    <span class="s">'url'</span> <span class="p">:</span> <span class="s">'https://www.wufoo.com'</span><span class="p">,</span>
     <span class="s">'handshakeKey'</span> <span class="p">:</span> <span class="s">'secret123'</span><span class="p">,</span>
     <span class="s">'metadata'</span> <span class="p">:</span> <span class="s">'true'</span>
 <span class="p">}</span>
@@ -3877,7 +4092,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
         <span class="s1">'sendImmediately'</span><span class="p">:</span> <span class="kc">false</span>
     <span class="p">},</span>
     <span class="na">form</span><span class="p">:</span> <span class="p">{</span>
-        <span class="s1">'url'</span> <span class="p">:</span> <span class="s1">'https://www.wufoo.com'</span><span class="p">,</span> 
+        <span class="s1">'url'</span> <span class="p">:</span> <span class="s1">'https://www.wufoo.com'</span><span class="p">,</span>
         <span class="s1">'handshakeKey'</span> <span class="p">:</span> <span class="s1">'secret123'</span><span class="p">,</span>
         <span class="s1">'metadata'</span> <span class="p">:</span> <span class="s1">'true'</span>
     <span class="p">}</span>
@@ -3925,9 +4140,9 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 
 <p><code class="prettyprint">PUT http://{subdomain}.wufoo.com/api/v3/forms/{identifier}/webhooks.{format}</code></p>
 
-<p>A PUT request is <a href="http://stackoverflow.com/questions/46585/when-do-you-use-post-and-when-do-you-use-get/46639#46639">idempotent</a>, which means that you may safely make this call multiple times with the same data. This prevents you from accidentally adding 10 of the same Webhook URLs to one form. For example: 
+<p>A PUT request is <a href="http://stackoverflow.com/questions/46585/when-do-you-use-post-and-when-do-you-use-get/46639#46639">idempotent</a>, which means that you may safely make this call multiple times with the same data. This prevents you from accidentally adding 10 of the same Webhook URLs to one form. For example:
 - You make one PUT call to the Webhook API with the <code class="prettyprint">url</code>, <code class="prettyprint">metadata</code>, and <code class="prettyprint">handshakeKey</code> parameters
-- Your user decides they want to use a new handshake key. 
+- Your user decides they want to use a new handshake key.
 - You make a second API call with the same <code class="prettyprint">url</code>, but a new <code class="prettyprint">handshakeKey</code>, and the API will update the handshake key of the Webhook with that URL to the new <code class="prettyprint">handshakeKey</code> parameter.</p>
 
 <h3 id="url-parameters">URL Parameters</h3>
@@ -3969,7 +4184,7 @@ If you set <code class="prettyprint">system</code> to any value (<code class="pr
 <tr>
 <td>handshakeKey</td>
 <td>N/A</td>
-<td>Optional. Sets the <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Webhooks#getstarted">handshakeKey property</a>. This can be used to help the receipient of the Webhooks ignore unwanted POSTs</td>
+<td>Optional. Sets the <a href="http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Webhooks#getstarted">handshakeKey property</a>. This can be used to help the recipient of the Webhooks ignore unwanted POSTs</td>
 </tr>
 <tr>
 <td>metadata</td>
@@ -4351,6 +4566,264 @@ the subdomain parameter is required. </p>
 <td>Server error. Send our support team the request you used, and we can take a closer look</td>
 </tr>
 </tbody></table>
+
+          <h1 id="form-embed-guide">Form Embed Guide</h1>
+
+<p>This guide shows how to get form code that will let you build a tool that lets users embed a Wufoo form into your website or application. To do so, we’ll have to circumvent <a href="https://en.wikipedia.org/wiki/Same-origin_policy">same origin policy</a> for JavaScript calls. We do this with a library called EasyXDM which simplifies cross-domain talking. We encourage you to read <a href="http://easyxdm.net/wp/">their documentation</a>.</p>
+
+<h2 id="a-simple-example">A Simple Example</h2>
+
+<blockquote>
+<p>A Simple Example</p>
+</blockquote>
+<pre class="highlight html"><code><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"popup"</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"http://wufoo.com/scripts/iframe/formEmbedKit.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+        <span class="kd">var</span> <span class="nx">wufoo_framework</span> <span class="o">=</span> <span class="nx">WufooFormEmbedKit</span><span class="p">({</span><span class="s1">'userDefinedCallback'</span><span class="p">:</span><span class="nx">userDefinedCallback</span><span class="p">,</span> <span class="s1">'displayElement'</span><span class="p">:</span><span class="s1">'popup'</span><span class="p">});</span>
+        <span class="nx">wufoo_framework</span><span class="p">.</span><span class="nx">display</span><span class="p">();</span>
+        <span class="kd">function</span> <span class="nx">userDefinedCallback</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+            <span class="nx">wufoo_framework</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+
+<p>On our <a href="http://www.wufoo.com/integration/iframe/example/">example page</a>, we present a common use case, how to preview a Wufoo iFrame selected by the user.</p>
+
+<ul>
+<li><p>Line 3 - Defines a div with an ID that corresponds to the second parameter of the function we define on Line 6. This is where our iFrame will appear.</p></li>
+<li><p>Line 4 - Pulls the WufooFormEmbedKit function from our servers</p></li>
+<li><p>Line 6 - Assigns the WufooFormEmbedKit function to the framework object.</p></li>
+<li><p>Line 7 - Calls the initialize function, which opens the Wufoo iFrame</p></li>
+<li><p>Line 8 - userDefinedFunction is created. This does not need to be called userDefinedFunction, but it must match the first parameter in the function defined on Line 6. This function is all yours to define what you want to do with the message parameter when it returns. In our case, we’re simply going to alert it to the screen. In your case, you’re going to do one of two things: 1) concatenate and save the two scripts defined within to your user’s markup 2) preview the form to your user, as explained in our more robust example.</p></li>
+<li><p>Line 9 - Tears down the framework. This closes the iFrame.</p></li>
+</ul>
+
+<h2 id="a-more-robust-example">A More Robust Example</h2>
+
+<p>First, let’s take a look at how the markup has been set up. The example page (and ultimately your page) is a basic HTML document with a few specially named elements. Let’s look at each.</p>
+
+<ul>
+<li><p>The Button (Fig. 1) - When clicked, you call the method on the object defined in Fig. 8. This action will open the iFrame in the browser.</p></li>
+<li><p>The action-area (Fig. 2) - We’ll be filling this div with a preview of user’s chosen form. This need not be named action-area, but it must correspond to the targetElement parameter of the script call made in Fig. 7.</p></li>
+<li><p>The popup div (Fig 3) - The Wufoo Form Embed Kit will fill this div with the iFrame from which the user will choose the form. The iFrame is fixed at 640x480px.</p></li>
+</ul>
+
+<blockquote>
+<p>A More Robust Example</p>
+</blockquote>
+<pre class="highlight html"><code><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">"UTF-8"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Wufoo Form Embed Kit <span class="ni">&amp;middot;</span> Example<span class="nt">&lt;/title&gt;</span>
+
+    <span class="c">&lt;!--[if lt IE 9]&gt;
+    &lt;script src="//html5shiv.googlecode.com/svn/trunk/html5.js"&gt;&lt;/script&gt;
+    &lt;![endif]--&gt;</span>
+
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">href=</span><span class="s">"http://wufoo.com/css/iframe/example.css"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+
+<span class="nt">&lt;body&gt;</span>
+
+    <span class="nt">&lt;header&gt;</span>
+        <span class="nt">&lt;h1&gt;</span>Your Awesome Web Application<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;/header&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"content"</span><span class="nt">&gt;</span>
+
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"actions"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;ul&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Do something<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Do something<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Do something<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#"</span><span class="nt">&gt;</span>Do something<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="c">&lt;!-- FIG. 1 --&gt;</span>
+                <span class="nt">&lt;li&gt;</span>
+                    <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"#"</span> <span class="na">id=</span><span class="s">"insert-wufoo-form"</span><span class="nt">&gt;</span>Insert Wufoo Form<span class="nt">&lt;/a&gt;</span>
+                <span class="nt">&lt;/li&gt;</span>
+            <span class="nt">&lt;/ul&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+
+        <span class="c">&lt;!-- FIG. 2 --&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"action-area"</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- FIG. 3 --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"popup"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">"iframe-goes-here"</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">"//wufoo.com/images/iframe/demo/fancy_close.png"</span> <span class="na">alt=</span><span class="s">"Close"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- FIG. 4 - The Wufoo Form Embed Kit --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//wufoo.com/scripts/iframe/formEmbedKit.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="c">&lt;!-- FIG. 5 Prototype. You can use jQuery if you like --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="c">&lt;!-- FIG. 6: only required if previewing the form for the user. Add disableForm=true to disable submission in preview --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//wufoo.com/scripts/embed/iframe.js?targetElement=action-area"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+    <span class="nt">&lt;script&gt;</span>
+
+        <span class="c1">//FIG. 7: init the form embed kit  (Warning: Global)</span>
+        <span class="kd">var</span> <span class="nx">wufoo_framework</span> <span class="o">=</span> <span class="nx">WufooFormEmbedKit</span><span class="p">({</span><span class="s1">'userDefinedCallback'</span><span class="p">:</span><span class="nx">userDefinedCallback</span><span class="p">,</span> <span class="s1">'displayElement'</span><span class="p">:</span><span class="s1">'iframe-goes-here'</span><span class="p">,</span> <span class="s1">'provider'</span><span class="p">:</span><span class="s1">'undefined'</span><span class="p">});</span>
+
+        <span class="c1">//Fig 8: Event listeners, intended to build up and tear down the library.</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'insert-wufoo-form'</span><span class="p">).</span><span class="nx">observe</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">'popup'</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">({</span><span class="na">display</span><span class="p">:</span><span class="s1">'block'</span><span class="p">});</span>
+            <span class="nx">wufoo_framework</span><span class="p">.</span><span class="nx">display</span><span class="p">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">});</span>
+        <span class="c1">// Clicking anywhere outside closes it</span>
+        <span class="nx">$</span><span class="p">(</span><span class="s1">'popup'</span><span class="p">).</span><span class="nx">observe</span><span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>    
+            <span class="nx">$</span><span class="p">(</span><span class="s1">'popup'</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">({</span><span class="na">display</span><span class="p">:</span><span class="s1">'none'</span><span class="p">});</span>
+            <span class="nx">wufoo_framework</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+        <span class="p">});</span>
+
+        <span class="c1">//FIG. 9: define a callback, with the required parameters</span>
+        <span class="kd">function</span> <span class="nx">userDefinedCallback</span><span class="p">(</span><span class="nx">message</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">//FIG. 10 Close lightbox</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">'popup'</span><span class="p">).</span><span class="nx">setStyle</span><span class="p">({</span><span class="na">display</span><span class="p">:</span><span class="s1">'none'</span><span class="p">});</span>
+
+            <span class="c1">// FIG. 11: MAGIC: Receive code from wufoo.com</span>
+            <span class="kd">var</span> <span class="nx">objMessage</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+
+            <span class="c1">// FIG. 12: Create div and write out code for preview</span>
+            <span class="c1">// You wouldn't necessarily need to preview, you can do whatever you want with the code</span>
+            <span class="nx">$</span><span class="p">(</span><span class="s1">'action-area'</span><span class="p">).</span><span class="nx">insert</span><span class="p">(</span><span class="nx">objMessage</span><span class="p">.</span><span class="nx">display</span><span class="p">);</span>
+
+            <span class="c1">// FIG. 13: tear down the library.</span>
+            <span class="nx">wufoo_framework</span><span class="p">.</span><span class="nx">destroy</span><span class="p">();</span>
+        <span class="p">}</span>
+
+    <span class="nt">&lt;/script&gt;</span>
+
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre>
+
+<h3 id="the-script-tags">The Script Tags</h3>
+
+<p>The example contains three script includes. Let’s discuss what each does.</p>
+
+<blockquote>
+<p>Script Tags</p>
+</blockquote>
+<pre class="highlight html"><code>FIG. 4 - The Wufoo Form Embed Kit
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//wufoo.com/scripts/iframe/formEmbedKit.js[?debug=true]"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+FIG. 5 Prototype. OPTIONAL, we are using for a little helping hand. You can use jQuery, MooTools, whatever... or nothing.
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/prototype/1.7.0.0/prototype.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+FIG. 6: only required if previewing the form for the user
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//wufoo.com/scripts/embed/iframe.js?targetElement=action-area"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</code></pre>
+
+<ul>
+<li><p>formEmbedKit.js (Fig 4) - This is the bread and butter. This script is required to make the Wufoo Form Embed Kit work. Without it, bupkis. If you want to see the debugging info provided by your local copy of EasyXDM, add the query parameter debug=true to the end of it. Be aware: this code has not been minimized and logs a lot, which slows your code down, so use only if you’re trying to work out a problem.</p></li>
+<li><p>Prototype (Fig 5) - Not required, but used throughout our example for some help.</p></li>
+<li><p>iframe.js (Fig 6) - This script include is only required if you plan to preview the form on the page for the user. Notice that we pass a GET parameter named targetElement which corresponds to the div defined in Fig. 2. Technically, this prevents the Wufoo iFrame embed snippet from using document.write when placed on the page.</p></li>
+</ul>
+
+<p>Note the URL’s start with // - that allows those resources to load from HTTP if on a non-secure page or HTTPS if on a secure page. A scheme-relative URL, if you will.</p>
+
+<h3 id="the-lightbox-effect">The Lightbox Effect</h3>
+
+<p>We set up two event listeners to handle the click events on the page.</p>
+
+<p>The first event we check for is the clicking of the <code class="prettyprint">&lt;a&gt;</code> element to open the form. When clicked, we reveal the popup div, which gives the appearance of a lightbox. We also call display on the wufoo_framework object. This opens the Wufoo Form Embed Kit.</p>
+
+<p>We check for a click on the popup. When this happens (the user is done interacting with the iFrame) the wufoo_framework object is destroyed. This removes the iFrame from the page and closes the lightbox effect.</p>
+
+<blockquote>
+<p>The Lightbox Effect</p>
+</blockquote>
+<pre class="highlight html"><code>//Fig 8: Event listeners, intended to build up and tear down the library.
+    $('insert-wufoo-form').observe('click', function() {
+        $('popup').setStyle({display:'block'});
+        wufoo_framework.display();
+        return null;
+    });
+    // Clicking anywhere outside closes it
+    $('popup').observe('click', function() {    
+        $('popup').setStyle({display:'none'});
+        wufoo_framework.destroy();
+        return null;
+    });
+</code></pre>
+
+<h3 id="user-defined-callback">User Defined Callback</h3>
+
+<p>To make this page operational, we must react to the callback. Here’s how that works.</p>
+
+<ul>
+<li><p>Close the Lightbox (Fig 10) - Using prototype, we grab the popup <div> tag and set the CSS selector to display:none. This hides the popup from view. You can get fancy here if you like.</p></li>
+<li><p>Parse the JSON (Fig 11) - At this point, we’re using Douglas Crockford’s json2 (automatically included with the Form Embed Kit) to parse the returned message. If your user’s browser is modern, it will use the built-in JSON parsing call. Otherwise, this the json2 library will be used. Either way, know that the JSON object is safely converted to an object. You can read about this JSON node in the Return Values section of this documentation. For now, know that it contains Wufoo’s Form Embed Snippet for iFrame creation.</p></li>
+<li><p>Append the Embed Snippet (Fig 12) - In order to make the page execute the scripts, you must append it to the DOM using the snippet shown here. We’re appending scripts, using a JavaScript library’s insert method to do so will safely eval them. Most libraries should have some method for this, for instance, jQuery’s append will do it as well.</p></li>
+<li><p>Destroy the Library (Fig 13) - calling framework.destroy() simply removes the iFrame you hid earlier in step 10.</p></li>
+</ul>
+
+<blockquote>
+<p>User Defined Callback</p>
+</blockquote>
+<pre class="highlight html"><code>//FIG. 9: define a callback, with the required parameters
+function userDefinedCallback(message) {
+    //FIG. 10 Close lightbox
+    $('popup').setStyle({display:'none'});
+
+    // FIG. 11: MAGIC: Receive code from wufoo.com
+    var objMessage = JSON.parse(message);
+
+    // FIG. 12: Create div and write out code for preview
+    // You wouldn't necessarily need to preview, you can do whatever you want with the code
+    $('action-area').insert(objMessage.display);
+
+    // FIG. 13: tear down the library.
+    wufoo_framework.destroy();
+}
+</code></pre>
+
+<h3 id="return-values">Return Values</h3>
+
+<p>When you set up the User Defined Callback, you provided a message parameter. When the user returns from our iFrame, this parameter will be filled with JSON.</p>
+
+<blockquote>
+<p>Return Values</p>
+</blockquote>
+<pre class="highlight json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"setup"</span><span class="p">:</span><span class="s2">"&lt;script type="</span><span class="err">text\/javascript</span><span class="s2">"&gt;var host = (("</span><span class="err">https:</span><span class="s2">" == document.location.protocol) ? "</span><span class="err">https:\/\/secure.</span><span class="s2">" : "</span><span class="err">http:\/\/</span><span class="s2">");document.write(unescape("</span><span class="err">%</span><span class="mi">3</span><span class="err">Cscript</span><span class="w"> </span><span class="err">src='</span><span class="s2">" + host + "</span><span class="err">wufoo.com\/scripts\/embed\/iframe.js'</span><span class="w"> </span><span class="err">type='text\/javascript'%</span><span class="mi">3</span><span class="err">E%</span><span class="mi">3</span><span class="err">C\/script%</span><span class="mi">3</span><span class="err">E</span><span class="s2">"));&lt;\/script&gt;"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"display"</span><span class="p">:</span><span class="s2">"&lt;script type="</span><span class="err">text\/javascript</span><span class="s2">"&gt;\nvar z7x4a9 = new WufooForm();\nz7x4a9.initialize({\n'userName':'wufooapi', \n'formHash':'z7x4a9', \n'autoResize':true,\n'height':'627',\n'ssl':true});\nz7x4a9.display();\n&lt;\/script&gt;"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+
+<p>This is simply a JSON object which contains two properties, each containing a <code class="prettyprint">&lt;script&gt;</code> tag which is ready to be added to your user’s markup. The two properties of this object are as follows.</p>
+
+<ul>
+<li><p>setup - this contains a utility script required to make Wufoo forms appear.</p></li>
+<li><p>display - this is final product: a <code class="prettyprint">&lt;script&gt;</code> tag which will draw a Wufoo form on your page. We added this script to the page in Fig 12. Based on your user’s account level, the ssl property will be automatically set to true or false.</p></li>
+</ul>
+
+<p>If you don’t plan on previewing the iFrame for the user, you may concatenate the setup and display and save them for eventual embedding on the user’s page. However, if you’re previewing the form like we do in this example, the setup node must not be included on your page. This is because the setup node has already been written as a script include in Fig 7.</p>
+
+<h3 id="register-your-kit">Register Your Kit</h3>
+
+<p>It is free and easy to <a href="https://master.wufoo.com/forms/register-your-wufoo-form-embed-kit/">register your Wufoo Form Embed Kit</a>, and it unlocks some powerful features:</p>
+
+<ul>
+<li>Allow for new user signups directly through the kit.</li>
+<li>Show your logo inside the kit on the login screen.</li>
+<li>Show your application’s name as the place to return to after a user creates or edits a form on Wufoo.com</li>
+</ul>
 
       </div>
       <div class="dark-box">
